@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:49:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/05 13:26:09 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:21:40 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,8 @@ char	*read_prompt()
 	while (1)
 	{
 		input = readline(prompt);
+		add_history(input);
+		free(input);
 	}
+	rl_clear_history();
 }
