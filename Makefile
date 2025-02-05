@@ -2,7 +2,8 @@ NAME = minishell
 LIBFT_DIR = ./lib/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 SRC_DIR = ./src
-SRCS =	$(SRC_DIR)/main.c $(SRC_DIR)/execute.c $(SRC_DIR)/pipex_utils.c $(SRC_DIR)/parse/parse.c
+
+SRCS =	$(SRC_DIR)/main.c $(SRC_DIR)/execute/execute.c $(SRC_DIR)/pipex_utils.c $(SRC_DIR)/parse/parse.c
 OBJS = $(SRCS:.c=.o)
 LIBS = -I$(LIBFT_DIR) -I./include
 CC = cc
