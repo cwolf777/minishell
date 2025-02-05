@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:49:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/05 15:21:40 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:49:54 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ char	*read_prompt()
 	char	*input;
 	
 	prompt = "🤏🐚\033[0;32m $ \033[0m";
-	while (1)
-	{
-		input = readline(prompt);
-		add_history(input);
-		free(input);
-	}
-	rl_clear_history();
+
+	input = readline(prompt);
+	add_history(input);
+
+	return (input);
 }

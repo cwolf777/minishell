@@ -30,13 +30,15 @@ NAME = libft.a
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	@echo "compiling libft.a"
 	@ar rcs $(NAME) $(OBJS)
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	@echo "clean libft"
+	@rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
