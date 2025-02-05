@@ -4,7 +4,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC_DIR = ./src
 
 SRCS =	$(SRC_DIR)/main.c \
-		$(SRC_DIR)/execute/execute.c $(SRC_DIR)/execute/execute_utils.c \
+		$(SRC_DIR)/execute/execute.c $(SRC_DIR)/execute/execute_utils.c $(SRC_DIR)/execute/pipex.c\
 		$(SRC_DIR)/parse/parse.c
 		
 OBJS = $(SRCS:.c=.o)
