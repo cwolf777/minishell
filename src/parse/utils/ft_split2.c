@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 10:35:34 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/06 10:55:13 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/06 14:52:11 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	fill_tokens(char **tokens, char const *s, char *c)
 	return (1);
 }
 
-char	**ft_split_2(char const *s, char *delimiters)
+char	**ft_split2(char const *s, char *delimiters)
 {
 	size_t	token_count;
 	char	**tokens;

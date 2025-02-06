@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/05 16:31:50 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:52:16 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	handle_error(char *error_msg, int exit_status);
 char	*get_envp(char *name, char *envp[]);
 char	*get_cmd_path(char *cmd, char *envp[]);
 char	**get_paths(char *envp[]);
+char	**ft_split2(char const *s, char *delimiters);
 
 #endif
