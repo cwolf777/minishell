@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:05:48 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/05 15:50:05 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/06 10:34:20 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int main(int argc, char *argv[], char *envp[])
 		res = execute(input, envp);
 		free(input);
 		ft_printf("%s", res);
+		free(res);
 	}
 	rl_clear_history();
 
