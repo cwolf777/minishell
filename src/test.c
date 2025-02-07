@@ -6,33 +6,30 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:00:44 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/07 14:21:51 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:36:38 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**create_cmd_args(char **prompt)
+char	**get_cmd_args(char **prompt)
 {
 	int		i;
-	int		start;
-	int		len;
 	char	**cmd_args;
+	int		len;
 
 	i = 0;
-	start = 0;
+	len = i;
 	while (prompt[i] != NULL)
 	{
 		if (ft_strncmp(";", prompt[i], 1) == 0)
 		{
-			len = i - start;
-			cmd_args = copy_split(prompt + start, len);
-			cmd_init(cmd_args);
-			print_prompt(cmd_args);
-			start = i + 1;
+			cmd_args = copy_split(prompt, i);
+			return (cmd_args);
 		}
 		i++;
 	}
+	cmd_args = copy_split(prompt, i);
 	return (prompt);
 }
 
@@ -60,4 +57,17 @@ char	**copy_split(char **split, int len)
 		i++;
 	}
 	return (copy);
+}
+
+void	search_cmd(char **prompt)
+{
+	int		i;
+	char	**cmd_args;
+
+	i = 0;
+	while (prompt[i] != NULL)
+	{
+		cmd_args = get_cmd_args(prompt);
+		i++;
+	}
 }

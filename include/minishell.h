@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/07 13:11:06 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:45:48 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+
 
 typedef enum e_token_type{
 	CMD,
@@ -56,9 +57,11 @@ void	handle_error(char *error_msg, int exit_status);
 char	*read_prompt();
 void	pipex(char *args[], char *envp[]);
 
+// list
+void	append_node(t_list **head, void *data);
 
 // trash
 void	print_prompt(char **prompt);
 char	**copy_split(char **split, int len);
-char	**create_cmd_args(char **prompt);
+char	**get_cmd_args(char **prompt);
 #endif
