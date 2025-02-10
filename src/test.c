@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:00:44 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/07 16:36:38 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/10 12:09:51 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,6 @@ char	**get_cmd_args(char **prompt)
 	}
 	cmd_args = copy_split(prompt, i);
 	return (prompt);
-}
-
-t_cmd	*cmd_init(char **cmd_args)
-{
-	t_cmd	*cmd;
-
-	cmd = malloc(sizeof(t_cmd));
-	cmd->type = CMD;
-	cmd->cmd_args = cmd_args;
-	return (cmd);
 }
 
 char	**copy_split(char **split, int len)
