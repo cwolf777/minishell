@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/10 11:38:02 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:39:32 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 
 // utils
 void	panic(char *error_msg);
+void	print_string_array(char **prompt);
+// char	**copy_split(char **split, int len);
+// char	**get_cmd_args(char **prompt);
 
 //execute
 char	*execute(char *prompt, char *envp[]);
@@ -38,11 +41,12 @@ void	handle_error(char *error_msg, int exit_status);
 char	*read_prompt();
 void	pipex(char *args[], char *envp[]);
 
+// tokens
+t_cmd	*exec_cmd_init(char **cmd_args);
+t_cmd	*redir_cmd_init(t_cmd *cmd, char *file, int fd, int mode);
+void	get_token(char *buf);
+
 // list
 void	append_node(t_list **head, void *data);
 
-// trash
-void	print_prompt(char **prompt);
-char	**copy_split(char **split, int len);
-char	**get_cmd_args(char **prompt);
 #endif

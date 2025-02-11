@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:58:36 by cwolf             #+#    #+#             */
-/*   Updated: 2025/02/07 14:34:32 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:29:48 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	append_node(t_list **head, void *data)
 	t_list	*new;
 	t_list	*temp;
 
+	temp = NULL;
 	new = ft_lstnew(data);
 	if (!new)
 		return ;
