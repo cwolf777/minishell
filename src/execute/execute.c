@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:10:15 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/05 15:43:16 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:33:10 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ char	*execute(char *prompt, char *envp[])
 	
 	pid = fork();
 	if (pid == 0)
+	{
+		// setpgid(0,0); //muss childprozess in neue Prozesgruppe setzen
 		child(pipe_fd, prompt, envp);
+	}
 	else
 	{
 		res = parent(pipe_fd);

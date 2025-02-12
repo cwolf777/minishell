@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:49:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/07 13:09:56 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:50:53 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*read_prompt()
 {
 	char	*prompt;
 	char	*input;
-	
 	prompt = "🤏🐚\033[0;32m $ \033[0m";
 
 	input = readline(prompt);
