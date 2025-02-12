@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/11 15:39:32 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:40:55 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@
 
 
 // utils
+char	**ft_split2(char const *s, char *delimiters);
 void	panic(char *error_msg);
 void	print_string_array(char **prompt);
-// char	**copy_split(char **split, int len);
-// char	**get_cmd_args(char **prompt);
+char	*ft_char_to_str(char c);
+void	print_list(t_list * list);
+void	free_str_arr(char **arr);
 
 //execute
 char	*execute(char *prompt, char *envp[]);
-char	**ft_split2(char const *s, char *delimiters);
 
 // pipex_utils
 char	*get_envp(char *name, char *envp[]);
 char	*get_cmd_path(char *cmd, char *envp[]);
 char	**get_paths(char *envp[]);
-void	free_split(char **split);
 void	handle_error(char *error_msg, int exit_status);
 
 // parse
@@ -44,9 +44,12 @@ void	pipex(char *args[], char *envp[]);
 // tokens
 t_cmd	*exec_cmd_init(char **cmd_args);
 t_cmd	*redir_cmd_init(t_cmd *cmd, char *file, int fd, int mode);
-void	get_token(char *buf);
+t_cmd	*pipe_cmd_init(t_cmd *left, t_cmd *right);
+t_cmd	*seq_cmd_init(t_cmd *left, t_cmd *right);
+t_cmd	*back_cmd_init(t_cmd *left);
+t_list	*convert_prompt_to_list(char *buf);
 
 // list
-void	append_node(t_list **head, void *data);
+t_list	*convert_prompt_to_list(char *prompt);
 
 #endif

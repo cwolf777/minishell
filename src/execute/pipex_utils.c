@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 15:41:03 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/10 10:22:25 by phhofman         ###   ########.fr       */
+/*   Created: 2025/02/12 13:36:15 by phhofman          #+#    #+#             */
+/*   Updated: 2025/02/12 13:44:49 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
 
 void	handle_error(char *error_msg, int exit_status)
 {
@@ -74,13 +61,13 @@ char	*get_cmd_path(char *cmd, char *envp[])
 	{
 		path = ft_strjoin(paths[i], cmd_temp);
 		if (!path)
-			return (free(cmd_temp), free_split(paths), NULL);
+			return (free(cmd_temp), free_str_arr(paths), NULL);
 		if (access(path, F_OK | X_OK) == 0)
-			return (free(cmd_temp), free_split(paths), path);
+			return (free(cmd_temp), free_str_arr(paths), path);
 		free(path);
 		i++;
 	}
-	return (free(cmd_temp), free_split(paths), NULL);
+	return (free(cmd_temp), free_str_arr(paths), NULL);
 }
 
 char	**get_paths(char *envp[])

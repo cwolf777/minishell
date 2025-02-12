@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   linked_list.c                                      :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 12:58:36 by cwolf             #+#    #+#             */
-/*   Updated: 2025/02/10 16:29:48 by phhofman         ###   ########.fr       */
+/*   Created: 2025/02/12 13:39:07 by phhofman          #+#    #+#             */
+/*   Updated: 2025/02/12 13:41:01 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	append_node(t_list **head, void *data)
+void	free_str_arr(char **arr)
 {
-	t_list	*new;
-	t_list	*temp;
+	int	i;
 
-	temp = NULL;
-	new = ft_lstnew(data);
-	if (!new)
-		return ;
-	if (!*head)
+	i = 0;
+	while (arr[i])
 	{
-		*head = new;
-		return ;
+		free(arr[i]);
+		i++;
 	}
-	while (temp->next)
-		temp = temp->next;
-	temp->next = new;
+	free(arr);
 }
-

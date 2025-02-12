@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:05:48 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/11 15:01:52 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:46:03 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ int main(void)
 {
 	char	*input;
 	// char	*res;
-	// t_list	*tokens;
+	t_list	*list;
 	// char **ps;
 	while (1)
 	{
 		input = read_prompt();
 		// char **split = ft_split2(input, "\t\n\v\f\r ");
 		// print_string_array(split);
-		get_token(input);
+		list = convert_prompt_to_list(input);
+		ft_lstiter(list, print_list);
 		// append_node(&tokens, );
 		// res = execute(input, envp);
 		// free(input);

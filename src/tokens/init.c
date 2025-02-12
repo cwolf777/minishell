@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 10:57:25 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/10 11:54:40 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/12 09:31:46 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,3 +76,4 @@ t_cmd	*back_cmd_init(t_cmd *left)
 	back_cmd->left = left;
 	return ((t_cmd *)back_cmd);
 }
+

@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:10:15 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/05 15:43:16 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:42:10 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ static void	child(int pipe_fd[2], char *prompt, char *envp[])
 	cmd_path = get_cmd_path(cmd_args[0], envp);
 	if (!cmd_path)
 	{
-		free_split(cmd_args);
+		free_str_arr(cmd_args);
 		handle_error("command not found", 127);
 	}
 	dup2(pipe_fd[1], STDOUT_FILENO);
 	execve(cmd_path, cmd_args, envp);
-	free_split(cmd_args);
+	free_str_arr(cmd_args);
 	free(cmd_path);
 	exit(EXIT_FAILURE);
 }

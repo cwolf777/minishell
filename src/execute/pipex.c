@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 16:24:51 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/05 16:33:13 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:45:08 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ static void	child(int pipe_fd[2], char *argv[], char *envp[])
 	cmd_path = get_cmd_path(cmd_args[0], envp);
 	if (!cmd_path)
 	{
-		free_split(cmd_args);
+		free_str_arr(cmd_args);
 		handle_error("command not found", 127);
 	}
 	if (redirect_child(fd, pipe_fd) == EXIT_FAILURE)
 		exit(EXIT_FAILURE);
 	execve(cmd_path, cmd_args, envp);
-	free_split(cmd_args);
+	free_str_arr(cmd_args);
 	free(cmd_path);
 	exit(EXIT_FAILURE);
 }
@@ -90,13 +90,13 @@ static void	parent(int pipe_fd[2], char *argv[], char *envp[])
 	cmd_path = get_cmd_path(cmd_args[0], envp);
 	if (!cmd_path)
 	{
-		free_split(cmd_args);
+		free_str_arr(cmd_args);
 		handle_error("command not found", 127);
 	}
 	if (redirect_parent(fd, pipe_fd) == EXIT_FAILURE)
 		handle_error(NULL, EXIT_FAILURE);
 	execve(cmd_path, cmd_args, envp);
-	free_split(cmd_args);
+	free_str_arr(cmd_args);
 	free(cmd_path);
 	handle_error(NULL, EXIT_FAILURE);
 }
