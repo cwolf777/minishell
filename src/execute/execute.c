@@ -6,7 +6,7 @@
 /*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:10:15 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/12 12:33:10 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/13 11:54:30 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ char	*execute(char *prompt, char *envp[])
 	pid = fork();
 	if (pid == 0)
 	{
-		// setpgid(0,0); //muss childprozess in neue Prozesgruppe setzen
 		child(pipe_fd, prompt, envp);
 	}
 	else
 	{
+		g_in_child = 1; // Markiere, dass ein Kindprozess läuft
 		res = parent(pipe_fd);
 		wait(NULL);
+		g_in_child = 0; // Kindprozess beendet
 		return (res);
 	}
 	return (NULL);

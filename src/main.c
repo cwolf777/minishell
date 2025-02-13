@@ -6,7 +6,7 @@
 /*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:05:48 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/12 11:09:35 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/13 11:51:30 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int main(int argc, char* argv[], char *envp[])
 	char	*input;
 	(void)argc;
 	(void)argv;
+	g_in_child = 0;
 	setup_signals();
 	char	*res;
 	// t_list	*tokens;
