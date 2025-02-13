@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:00:37 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/12 13:22:19 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:14:12 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,12 @@ char	*ft_char_to_str(char c)
 	str[0] = c;
 	str[1] = '\0';
 	return (str);
+}
+
+void print_tokens(t_list *tokens)
+{
+	t_token	*token;
+
+	token = (t_token *)tokens->content;
+	printf("TOKEN: Type=%d, Value='%s'\n", token->type, token->value);
 }

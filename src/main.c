@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:05:48 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/12 13:46:03 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:14:17 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(void)
 		// char **split = ft_split2(input, "\t\n\v\f\r ");
 		// print_string_array(split);
 		list = convert_prompt_to_list(input);
-		ft_lstiter(list, print_list);
+		ft_lstiter(list, print_tokens);
 		// append_node(&tokens, );
 		// res = execute(input, envp);
 		// free(input);

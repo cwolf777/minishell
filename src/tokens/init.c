@@ -6,11 +6,23 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 10:57:25 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/12 09:31:46 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/13 11:41:11 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_token	*token_init(int type, char *value)
+{
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if (!token)
+		panic("malloc fail in token init");
+	token->type = type;
+	token->value = value;
+	return (token);
+}
 
 t_cmd	*exec_cmd_init(char **cmd_args)
 {

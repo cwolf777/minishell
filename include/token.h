@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 09:41:43 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/12 09:31:09 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/13 10:55:50 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define TOKENS_H
 
 typedef enum e_token_type{
+	TEXT,
 	EXEC,
 	REDIR,
 	PIPE,
@@ -22,6 +23,13 @@ typedef enum e_token_type{
 	ENV,
 	HERE_DOC,
 }	t_token_type;
+
+typedef struct	s_token
+{
+	int		type;
+	char	*value;
+}			t_token;
+
 
 typedef struct	s_cmd
 {

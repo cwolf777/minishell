@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:19:37 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/12 15:06:32 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:14:29 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	skip_whitespace(char **prompt)
 			(*prompt) ++;
 }
 
-static t_list *parse_cmd(char **prompt)
+static t_list *parse_text(char **prompt)
 {
 	int		token_len;
 	char	quote_type;
@@ -41,7 +41,7 @@ static t_list *parse_cmd(char **prompt)
 
 	token_len = 0;
 	quote_type = 0;
-	while (**prompt != '\0' && (is_symbol(*prompt, quote_type) == 'a'))
+	while (**prompt != '\0')
 	{
 		if (**prompt == '"' || **prompt == '\'')
 		{
@@ -50,19 +50,22 @@ static t_list *parse_cmd(char **prompt)
 			else if(quote_type == **prompt)
 				quote_type = 0;
 		}
+		else if (quote_type == 0 && (ft_strchr("\t\n\v\f\r ", **prompt) || is_symbol(*prompt, 0) != 'a'))
+			break;
 		(*prompt)++;
 		token_len++;
 	}
-	cmd = ft_substr(*prompt - token_len, 0, token_len);
 	if (quote_type != 0)
 		panic("quote fail");
-	return ft_lstnew(cmd);
+	cmd = ft_substr(*prompt - token_len, 0, token_len);
+	return (ft_lstnew(token_init(TEXT, cmd)));
 }
 
 static t_list *parse_operator(char **prompt)
 {
-	char symbol;
-	char *op;
+	char	symbol;
+	char	*op;
+	char	token_type;
 
 	symbol = is_symbol(*prompt, 0);
 	op = ft_char_to_str(symbol);
@@ -71,7 +74,8 @@ static t_list *parse_operator(char **prompt)
 	if (ft_strchr("+#", symbol) != NULL)
 		(*prompt) ++;
 	(*prompt) ++;
-	return ft_lstnew(op);
+	token_type = get_token_type(symbol);
+	return (ft_lstnew(token_init(token_type, op)));
 }
 
 t_list	*convert_prompt_to_list(char *prompt)
@@ -86,12 +90,10 @@ t_list	*convert_prompt_to_list(char *prompt)
 		if (*prompt == '\0')
 			break;
 		if (is_symbol(prompt, 0) == 'a')
-			node = parse_cmd(&prompt);
+			node = parse_text(&prompt);
 		else
 			node = parse_operator(&prompt);
 		ft_lstadd_back(&tokens, node);
 	}
 	return (tokens);
 }
-
-

@@ -1,16 +1,20 @@
 NAME = minishell
 LIBFT_DIR = ./lib/libft
 LIBFT = $(LIBFT_DIR)/libft.a
+LIBS = -I$(LIBFT_DIR) -I./include
 SRC_DIR = ./src
 
-SRCS =	$(SRC_DIR)/main.c \
-		$(SRC_DIR)/execute/execute.c $(SRC_DIR)/execute/pipex_utils.c $(SRC_DIR)/execute/pipex.c\
-		$(SRC_DIR)/parse/parse.c \
-		$(SRC_DIR)/tokens/init.c $(SRC_DIR)/tokens/get_token.c \
-		$(SRC_DIR)/utils/utils.c $(SRC_DIR)/utils/ft_split2.c $(SRC_DIR)/utils/list.c $(SRC_DIR)/utils/free.c 
+VPATH = $(SRC_DIR) $(SRC_DIR)/execute $(SRC_DIR)/tokens $(SRC_DIR)/utils $(SRC_DIR)/parse
 
-OBJS = $(SRCS:.c=.o)
-LIBS = -I$(LIBFT_DIR) -I./include
+SRCS =	main.c \
+		execute.c pipex_utils.c pipex.c \
+		parse.c \
+		init.c get_token.c \
+		utils.c ft_split2.c list.c free.c 
+
+
+OBJS_DIR = objects
+OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 CC = cc
 CFLAGS = -Wall -Werror -Wextra $(LIBS)
 
@@ -22,11 +26,16 @@ $(NAME): $(LIBMLX) $(LIBFT) $(OBJS)
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
+	@echo "Compiling $<\n"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJS_DIR):
+	@echo "Creating $(OBJS_DIR) directory"
+	@mkdir -p $(OBJS_DIR)
 
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJS_DIR)
 	make -C $(LIBFT_DIR) clean
 
 fclean: clean
