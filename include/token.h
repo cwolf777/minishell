@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 09:41:43 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/13 10:55:50 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/14 10:58:41 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct	s_token
 	int		type;
 	char	*value;
 }			t_token;
-
 
 typedef struct	s_cmd
 {

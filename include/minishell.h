@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/13 12:56:19 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:07:44 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	handle_error(char *error_msg, int exit_status);
 // parse
 char	*read_prompt();
 void	pipex(char *args[], char *envp[]);
+void	print_baum(t_cmd *baum);
+t_cmd	*parse_pipe(t_list	**liste);
+t_cmd	*parse_exec(t_list **liste);
 
 // tokens
 t_token	*token_init(int type, char *value);

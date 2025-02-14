@@ -37,7 +37,7 @@ $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
-	@echo "Compiling $<\n"
+	@echo "Compiling $<"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJS_DIR):

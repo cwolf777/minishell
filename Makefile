@@ -12,7 +12,6 @@ SRCS =	main.c \
 		init.c get_token.c \
 		utils.c ft_split2.c list.c free.c 
 
-
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 CC = cc
@@ -27,7 +26,7 @@ $(LIBFT):
 	make -C $(LIBFT_DIR)
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
-	@echo "Compiling $<\n"
+	@echo "Compiling $<"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJS_DIR):
