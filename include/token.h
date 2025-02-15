@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 09:41:43 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/15 14:57:34 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/15 16:30:40 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,14 @@ typedef struct	s_exec_cmd
 	char	**cmd_args;		// ["cat", "-e", "Makefile", NULL];
 }			t_exec_cmd;
 
-typedef struct	s_redir
-{
-	int		type;
-	char	*file;
-	int		fd;				// STDIN | STDOUT
-	int		mode;			// O_WRONLY | O_CREATE | O_APPEND
-}			t_redir;
-
 typedef struct	s_redir_cmd
 {
 	int		type;
 	t_cmd	*cmd;
-	t_redir	*redir;
-}			t_redir_cmd;
+	char	*file;
+	int		fd;				// STDIN | STDOUT
+	int		mode;			// O_WRONLY | O_CREATE | O_APPEND}	
+}		t_redir_cmd;
 
 typedef struct	s_pipe_cmd
 {

@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:49:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/15 16:23:24 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:24:42 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,39 @@ void	print_baum(t_cmd *baum)
 	}
 	
 }
+t_cmd	*parse_cmd(t_list **list)
+{
+	t_cmd	*cmd;
 
-t_cmd	*parse_pipe(t_list	**liste)
+	cmd = parse_line(list);
+	if (!*list)
+		panic("syntax error, leftovers in prompt");
+	return (cmd);
+}
+t_cmd	*parse_line(t_list **list)
+{
+	t_cmd	*cmd;
+	t_token	*token;
+
+	cmd = parse_pipe(list);
+	token = (t_token *)(*list)->content;
+	if (token->type == BACK)
+	{
+		cmd = back_cmd_init(cmd);
+		*list = (*list)->next;
+		token = (t_token *)(*list)->content;
+	}
+	if (token->type == SEQ)
+	{
+		*list = (*list)->next;
+		cmd = seq_cmd_init(cmd, parse_line(list));
+	}
+	return (cmd);
+}
+
+
+
+t_cmd	*parse_pipe(t_list	**list)
 {
 	t_token *token;
 	t_cmd	*pipe;
@@ -41,22 +72,22 @@ t_cmd	*parse_pipe(t_list	**liste)
 	right = NULL;
 	left = NULL;
 
-	if (!*liste)
+	if (!*list)
 		return (NULL);
-	token = (t_token *)(*liste)->content;
-	// print_tokens(*liste);
+	token = (t_token *)(*list)->content;
+	// print_tokens(*list);
 	if (token->type == TEXT)
 	{
-		// *liste = (*liste)->next;
-		left = parse_exec(liste); // cat 
+		// *list = (*list)->next;
+		left = parse_exec(list); // cat 
 	}
-	if (!*liste)
+	if (!*list)
 		return (left);
-	token = (t_token *)(*liste)->content;
+	token = (t_token *)(*list)->content;
 	if (token->type == PIPE)
 	{
-		*liste = (*liste)->next;
-		right = parse_pipe(liste); // echo + ls
+		*list = (*list)->next;
+		right = parse_pipe(list); // echo + ls
 	}
 	
 	pipe = pipe_cmd_init(left, right);
@@ -64,50 +95,65 @@ t_cmd	*parse_pipe(t_list	**liste)
 	return ((t_cmd *)pipe);
 }
 
-t_cmd	*parse_exec(t_list **liste)
+t_cmd	*parse_exec(t_list **list)
 {
 	t_cmd	*exec;
 	t_token *token;
 	char **split;
 	char	*join;
-	// t_cmd	*redir;
 
-	token = (t_token *)(*liste)->content;
-	// if (token->type == REDIR)
-	// {
-	// 	liste = liste->next;
-		
-	// }
-	join = ft_strdup("");
-	// print_tokens(*liste);
-	while (*liste)
+	token = (t_token *)(*list)->content;
+	if (token == REDIR)
 	{
-		token = (t_token *)(*liste)->content;
+		exec = parse_redir(list, parse_exec((*list)->next->next));
+		return (exec);
+	}
+	join = ft_strdup("");
+	while (*list)
+	{
+		token = (t_token *)(*list)->content;
 		if (token->type != TEXT)
 			break;
 		join = ft_strjoin(join, token->value);
 		join = ft_strjoin(join, " ");
-		*liste = (*liste)->next;
-	}
-	if (token->type == REDIR)
-	{
-		parse_redir(liste);
+		*list = (*list)->next;
 	}
 	split = ft_split2(join, "\t\n\v\f\r ");
 	exec = exec_cmd_init(split); // ["cat", "-e", "Makefile"]
-	// redir = parse_exec(liste); 
-	// redir_cmd_init(exec, )
+	if (token->type == REDIR)
+	{
+		exec = parse_redir(list, exec);
+	}
+
 	return (exec);
 }
 
-t_cmd	*parse_redir(t_list **liste)
+t_cmd	*parse_redir(t_list **list, t_exec_cmd *cmd)
 {
-	t_token *token;
-	t_redir	*redir;
+	t_token		*token;
+	t_redir_cmd	*redir;
+	char		*redir_symbol;
 
-	token = (t_token *)(*liste)->content;
-	if (ft_strncmp(token->value, "<", 2) == 0)
+	redir = NULL;
+	token = (t_token *)(*list)->content;
+	redir_symbol = token->value;
+	*list = (*list)->next;
+	token = (t_token *)(*list)->content;
+	if (token->type != TEXT)
+		panic("error redirect fail no file");
+	if (ft_strncmp(redir_symbol, "<", 2) == 0)
 	{
-		
+		redir = redir_cmd_init(cmd, token->value, STDIN_FILENO, O_RDONLY);
 	}
-}
+	if (ft_strncmp(redir_symbol, ">", 2) == 0)
+	{
+		redir = redir_cmd_init(cmd, token->value, STDOUT_FILENO, O_WRONLY | O_CREAT | O_TRUNC);
+	}
+	if (ft_strncmp(redir_symbol, "+", 2) == 0)
+	{
+		// >>
+		redir = redir_cmd_init(cmd, token->value, STDOUT_FILENO, O_WRONLY | O_CREAT);
+	}
+	*list = (*list)->next;
+	return ((t_cmd *)redir);
+} 
