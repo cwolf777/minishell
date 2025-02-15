@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:49:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/14 17:08:20 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/15 16:23:24 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ void	print_baum(t_cmd *baum)
 		t_pipe_cmd	*pipe = (t_pipe_cmd *)baum;
 		t_cmd	*cmd = pipe->left;
 		print_baum(cmd);
+		ft_printf(" | ");
 		cmd = pipe->right;
 		print_baum(cmd);
+		ft_printf("\n");
 	}
+	
 }
 
 t_cmd	*parse_pipe(t_list	**liste)
@@ -41,11 +44,11 @@ t_cmd	*parse_pipe(t_list	**liste)
 	if (!*liste)
 		return (NULL);
 	token = (t_token *)(*liste)->content;
-	print_tokens(*liste);
+	// print_tokens(*liste);
 	if (token->type == TEXT)
 	{
+		// *liste = (*liste)->next;
 		left = parse_exec(liste); // cat 
-		*liste = (*liste)->next;
 	}
 	if (!*liste)
 		return (left);
@@ -65,11 +68,46 @@ t_cmd	*parse_exec(t_list **liste)
 {
 	t_cmd	*exec;
 	t_token *token;
-
 	char **split;
+	char	*join;
+	// t_cmd	*redir;
 
 	token = (t_token *)(*liste)->content;
-	split = ft_split2(token->value, "\t\n\v\f\r ");
-	exec = exec_cmd_init(split);
+	// if (token->type == REDIR)
+	// {
+	// 	liste = liste->next;
+		
+	// }
+	join = ft_strdup("");
+	// print_tokens(*liste);
+	while (*liste)
+	{
+		token = (t_token *)(*liste)->content;
+		if (token->type != TEXT)
+			break;
+		join = ft_strjoin(join, token->value);
+		join = ft_strjoin(join, " ");
+		*liste = (*liste)->next;
+	}
+	if (token->type == REDIR)
+	{
+		parse_redir(liste);
+	}
+	split = ft_split2(join, "\t\n\v\f\r ");
+	exec = exec_cmd_init(split); // ["cat", "-e", "Makefile"]
+	// redir = parse_exec(liste); 
+	// redir_cmd_init(exec, )
 	return (exec);
+}
+
+t_cmd	*parse_redir(t_list **liste)
+{
+	t_token *token;
+	t_redir	*redir;
+
+	token = (t_token *)(*liste)->content;
+	if (ft_strncmp(token->value, "<", 2) == 0)
+	{
+		
+	}
 }
