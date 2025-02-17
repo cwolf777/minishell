@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/15 15:06:03 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:23:18 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	print_tokens(t_list *tokens);
 
 //execute
 char	*execute(char *prompt, char *envp[]);
+char	*read_prompt();
+void	pipex(char *args[], char *envp[]);
 
 // pipex_utils
 char	*get_envp(char *name, char *envp[]);
@@ -39,11 +41,14 @@ char	**get_paths(char *envp[]);
 void	handle_error(char *error_msg, int exit_status);
 
 // parse
-char	*read_prompt();
-void	pipex(char *args[], char *envp[]);
 void	print_baum(t_cmd *baum);
+void print_ast(t_cmd *cmd, int depth);
+t_cmd	*parse_cmd(t_list **list);
+t_cmd	*parse_line(t_list **list);
+t_cmd	*parse_block(t_list **list);
 t_cmd	*parse_pipe(t_list	**liste);
 t_cmd	*parse_exec(t_list **liste);
+t_cmd	*parse_redir(t_list **list, t_cmd *cmd);
 
 // tokens
 t_token	*token_init(int type, char *value);

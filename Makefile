@@ -8,19 +8,23 @@ VPATH = $(SRC_DIR) $(SRC_DIR)/execute $(SRC_DIR)/tokens $(SRC_DIR)/utils $(SRC_D
 
 SRCS =	main.c \
 		execute.c pipex_utils.c pipex.c \
-		parse.c \
-		init.c get_token.c \
-		utils.c ft_split2.c list.c free.c 
+		parse.c print_ast.c \
+		init.c tokenizer.c \
+		utils.c ft_split2.c free.c
 
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 CC = cc
 CFLAGS = -Wall -Werror -Wextra $(LIBS)
+DEBUG_FLAGS = -Wall -Werror -Wextra -g $(LIBS)
 
 all: $(NAME)
 
-$(NAME): $(LIBMLX) $(LIBFT) $(OBJS)
+$(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft -lreadline
+
+debug: CFLAGS = $(DEBUG_FLAGS)
+debug: re
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
@@ -43,4 +47,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re debug

@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 10:57:25 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/13 11:41:11 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:09:24 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_cmd	*exec_cmd_init(char **cmd_args)
 {
 	t_exec_cmd	*exec_cmd;
 
-	if (!cmd_args || !cmd_args[0])
-		panic("cmd_args null in exec init\n");
+	// if (!cmd_args || !cmd_args[0])
+	// 	panic("cmd_args null in exec init\n");
 	exec_cmd = (t_exec_cmd *)malloc(sizeof(t_exec_cmd));
 	if (!exec_cmd)
 		panic("malloc fail in exec init \n");

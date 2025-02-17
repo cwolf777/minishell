@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 13:19:37 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/13 13:14:29 by phhofman         ###   ########.fr       */
+/*   Created: 2025/02/10 14:10:07 by phhofman          #+#    #+#             */
+/*   Updated: 2025/02/17 10:39:59 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,21 @@ t_list	*convert_prompt_to_list(char *prompt)
 		ft_lstadd_back(&tokens, node);
 	}
 	return (tokens);
+}
+
+int	get_token_type(char	c)
+{
+	if (c == '#')
+		return (HERE_DOC);
+	if (c == '<' || c == '>' || c == '+')
+		return (REDIR);
+	if (c == '|')
+		return (PIPE);
+	if (c == ';')
+		return (SEQ);
+	if (c == '&')
+		return (BACK);
+	if (c == '(' || c == ')')
+		return (PARENS);
+	return (TEXT);
 }

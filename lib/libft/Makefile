@@ -46,7 +46,7 @@ $(OBJS_DIR):
 
 clean:
 	@echo "clean libft"
-	@rm -f $(OBJS)
+	@rm -rf $(OBJS_DIR)
 
 fclean: clean
 	rm -f $(NAME)

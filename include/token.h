@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 09:41:43 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/15 16:30:40 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/17 10:30:44 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef enum e_token_type{
 	PIPE,
 	SEQ,
 	BACK,
+	PARENS,
 	ENV,
 	HERE_DOC,
 }	t_token_type;
