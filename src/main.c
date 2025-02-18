@@ -6,7 +6,7 @@
 /*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:05:48 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/18 14:35:28 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/18 15:54:37 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@ int main(void)
 	while (1)
 	{
 		input = read_prompt();
-		ft_printf("%s\n", input);
+		if (input == NULL)
+		{
+			ft_printf("exit\n");
+			exit(EXIT_SUCCESS);
+		}
+		// ft_printf("%s\n", input);
 		list = tokenizer(input);
 		if (list)
 		{
