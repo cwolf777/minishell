@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/17 14:23:18 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:32:00 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,14 @@ t_cmd	*redir_cmd_init(t_cmd *cmd, char *file, int fd, int mode);
 t_cmd	*pipe_cmd_init(t_cmd *left, t_cmd *right);
 t_cmd	*seq_cmd_init(t_cmd *left, t_cmd *right);
 t_cmd	*back_cmd_init(t_cmd *left);
-t_list	*convert_prompt_to_list(char *buf);
+t_list	*tokenizer(char *buf);
 int		get_token_type(char c);
 
 // list
 t_list	*convert_prompt_to_list(char *prompt);
+
+// signals
+void setup_signals(void);
+sig_atomic_t g_in_child;
 
 #endif

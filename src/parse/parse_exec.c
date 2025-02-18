@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:45:50 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/18 10:26:36 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:07:18 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_cmd	*parse_exec(t_list **list)
 
 static char	*join_cmd_args(char *cmd, char *arg)
 {
-	t_token	*token;
+	// t_token	*token;
 	char	*temp;
 
 	temp = ft_strjoin(cmd, arg);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:10:07 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/17 10:39:59 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:36:13 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,13 @@ static t_list *parse_operator(char **prompt)
 	return (ft_lstnew(token_init(token_type, op)));
 }
 
-t_list	*convert_prompt_to_list(char *prompt)
+t_list	*tokenizer(char *prompt)
 {
 	t_list	*tokens;
 	t_list	*node;
 
+	if (!prompt)
+		return (NULL);
 	tokens = NULL;
 	while (*prompt != '\0')
 	{
