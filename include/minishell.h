@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/18 14:32:00 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/18 16:27:06 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*ft_char_to_str(char c);
 void	print_list(t_list * list);
 void	free_str_arr(char **arr);
 void	print_tokens(t_list *tokens);
+int	fork_plus();
 
 //execute
 char	*execute(char *prompt, char *envp[]);

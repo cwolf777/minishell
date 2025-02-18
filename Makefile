@@ -7,11 +7,11 @@ SRC_DIR = ./src
 VPATH = $(SRC_DIR) $(SRC_DIR)/execute $(SRC_DIR)/tokens $(SRC_DIR)/utils $(SRC_DIR)/parse
 
 SRCS =	main.c \
-		execute.c pipex_utils.c pipex.c \
+		execute.c run.c exec.c pipex_utils.c pipex.c \
 		parse_cmd.c parse_block.c parse_line.c parse_exec.c parse_pipe.c parse_redir.c \
 		cmd_init.c print_ast.c \
 		tokenizer.c \
-		utils.c ft_split2.c free.c signals.c
+		utils.c ft_split2.c free.c signals.c fork_plus.c
 
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))

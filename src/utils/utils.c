@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:00:37 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/15 15:30:41 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:27:44 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ void	panic(char *error_msg)
 	if (error_msg)
 		ft_printf("%s",error_msg);
 	exit(EXIT_FAILURE);
+}
+
+int	fork_plus()
+{
+	int	pid;
+
+	pid = fork();
+	if (pid < 0)
+		panic("fork fail");
+	return (pid);
 }
 
 void	print_string_array(char **arr)
