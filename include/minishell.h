@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/18 16:27:06 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:28:18 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ int	fork_plus();
 char	*execute(char *prompt, char *envp[]);
 char	*read_prompt();
 void	pipex(char *args[], char *envp[]);
+void	run(t_cmd *cmd, char *envp[]);
+void	run_exec(t_exec_cmd	*exec, char *envp[]);
+void	run_pipe(t_pipe_cmd pipe_cmd, char *envp[]);
+void	run_back(t_back_cmd *back, char *envp[]);
+void	run_seq(t_seq_cmd *seq, char *envp[]);
+void	run_redir(t_redir_cmd *redir, char *envp[]);
 
 // pipex_utils
 char	*get_envp(char *name, char *envp[]);
