@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:49:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/19 09:56:59 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:41:50 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	run(t_cmd *cmd, char *envp[])
 		panic("run cmd = NULL");
 	if (cmd->type == EXEC)
 		run_exec((t_exec_cmd *)cmd, envp);
+	if (cmd->type == PIPE)
+		run_pipe((t_pipe_cmd *)cmd, envp);
 	else if (cmd->type == REDIR)
 		run_redir((t_redir_cmd *)cmd, envp);
 	else if (cmd->type == SEQ)
@@ -26,7 +28,7 @@ void	run(t_cmd *cmd, char *envp[])
 		run_back((t_back_cmd *)cmd, envp);
 }
 
-void	run_pipe(t_pipe_cmd pipe_cmd, char *envp[])
+void	run_pipe(t_pipe_cmd *pipe_cmd, char *envp[])
 {
 	int	tunnel[2];
 
@@ -36,15 +38,15 @@ void	run_pipe(t_pipe_cmd pipe_cmd, char *envp[])
 	{
 		close(tunnel[0]);
 		dup2(tunnel[1], STDOUT_FILENO);
-		close(STDOUT_FILENO);
-		run(pipe_cmd.left, envp);
+		close(tunnel[1]);
+		run(pipe_cmd->left, envp);
 	}
 	if (fork_plus() == 0)
 	{
 		close(tunnel[1]);
 		dup2(tunnel[0], STDIN_FILENO);
-		close(STDIN_FILENO);
-		run(pipe_cmd.right, envp);
+		close(tunnel[0]);
+		run(pipe_cmd->right, envp);
 	}
 	close(tunnel[0]);
 	close(tunnel[1]);
@@ -69,8 +71,17 @@ void	run_seq(t_seq_cmd *seq, char *envp[])
 
 void	run_redir(t_redir_cmd *redir, char *envp[])
 {
+	int	saved_in;
+	int	saved_out;
+	int	saved_err;
+
+	saved_in = dup(STDIN_FILENO);
+	saved_out = dup(STDERR_FILENO);
+	saved_err = dup(STDOUT_FILENO);
 	close(redir->fd);
 	if (open(redir->file, redir->mode, 0644) < 0)
 		panic("redir open failed");
 	run(redir->cmd, envp);
+	reset_standard_fds(saved_in, saved_out, saved_err);
 }
+

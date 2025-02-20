@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/18 15:52:06 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/20 13:53:06 by phhofman         ###   ########.fr       */
+/*   Created: 2025/02/19 14:55:46 by phhofman          #+#    #+#             */
+/*   Updated: 2025/02/19 14:56:20 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	run_exec(t_exec_cmd	*exec, char *envp[])
+void print_tokens(t_list *tokens)
 {
-	char	*cmd_path;
+	t_token	*token;
 
-	if (!exec->cmd_args[0])
-		panic("no cmd_args");
+	token = (t_token *)tokens->content;
+	printf("TOKEN: Type=%d, Value='%s'\n", token->type, token->value);
+}
 
-	cmd_path = get_cmd_path(exec->cmd_args[0], envp);
-	if (!cmd_path)
+void	print_list(t_list *list)
+{
+	ft_printf("%s\n", list->content);
+}
+
+void	print_string_array(char **arr)
+{
+	int i = 0;
+	while (arr[i] != NULL)
 	{
-		// free cmd_args and t_cmd exec
-		panic("find cmd_path fail");
+		ft_printf("%s ", arr[i]);
+		i++;
 	}
-	execve(cmd_path, exec->cmd_args, envp);
-	panic("fail execve exec");
-
 }

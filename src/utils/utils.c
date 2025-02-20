@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:00:37 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/18 16:27:44 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:56:43 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,6 @@ int	fork_plus()
 	return (pid);
 }
 
-void	print_string_array(char **arr)
-{
-	int i = 0;
-	while (arr[i] != NULL)
-	{
-		ft_printf("%s ", arr[i]);
-		i++;
-	}
-}
-void	print_list(t_list *list)
-{
-	ft_printf("%s\n", list->content);
-}
-
 char	*ft_char_to_str(char c)
 {
 	char	*str;
@@ -55,10 +41,15 @@ char	*ft_char_to_str(char c)
 	return (str);
 }
 
-void print_tokens(t_list *tokens)
+void	reset_standard_fds(int in, int out, int err)
 {
-	t_token	*token;
-
-	token = (t_token *)tokens->content;
-	printf("TOKEN: Type=%d, Value='%s'\n", token->type, token->value);
+	if (dup2(in, STDIN_FILENO) > 0)
+		panic("reset stdin fail");
+	if (dup2(out, STDOUT_FILENO) > 0)
+		panic("reset stdout fail");
+	if (dup2(err, STDERR_FILENO) > 0)
+		panic("reset stderr fail");
+	close(in);
+	close(out);
+	close(err);
 }

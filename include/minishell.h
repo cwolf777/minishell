@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/18 17:28:18 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:39:37 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "./token.h"
 # include <stdio.h>
+# include <stdlib.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 
@@ -23,12 +24,14 @@
 // utils
 char	**ft_split2(char const *s, char *delimiters);
 void	panic(char *error_msg);
-void	print_string_array(char **prompt);
+int		fork_plus();
+void	reset_standard_fds(int in, int out, int err);
 char	*ft_char_to_str(char c);
+void	print_string_array(char **prompt);
 void	print_list(t_list * list);
-void	free_str_arr(char **arr);
 void	print_tokens(t_list *tokens);
-int	fork_plus();
+void	free_str_arr(char **arr);
+
 
 //execute
 char	*execute(char *prompt, char *envp[]);
@@ -36,7 +39,7 @@ char	*read_prompt();
 void	pipex(char *args[], char *envp[]);
 void	run(t_cmd *cmd, char *envp[]);
 void	run_exec(t_exec_cmd	*exec, char *envp[]);
-void	run_pipe(t_pipe_cmd pipe_cmd, char *envp[]);
+void	run_pipe(t_pipe_cmd *pipe_cmd, char *envp[]);
 void	run_back(t_back_cmd *back, char *envp[]);
 void	run_seq(t_seq_cmd *seq, char *envp[]);
 void	run_redir(t_redir_cmd *redir, char *envp[]);
