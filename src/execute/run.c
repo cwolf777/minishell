@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:49:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/20 14:32:43 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:20:53 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	run_back(t_back_cmd *back, char *envp[])
 
 void	run_seq(t_seq_cmd *seq, char *envp[])
 {
-
 	if (fork_plus() == 0)
 		run((t_cmd*)seq->left, envp);
 	wait(NULL);
