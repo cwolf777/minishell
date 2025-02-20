@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:05:48 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/20 14:20:23 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:06:27 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int main(int argc, char *argv[], char *envp[])
 		list = tokenizer(input);
 		if (list)
 		{
-			// ft_lstiter(list, print_tokens);
+			ft_lstiter(list, print_tokens);
 			cmd = parse_cmd(&list);
-			// print_ast(cmd, 0);
+			print_ast(cmd, 0);
 			if (fork_plus() == 0)
 				run(cmd, envp);
 			wait(NULL);
@@ -56,6 +56,5 @@ int main(int argc, char *argv[], char *envp[])
 		free(input);
 	}
 	rl_clear_history();
-
 	return (EXIT_SUCCESS);
 }

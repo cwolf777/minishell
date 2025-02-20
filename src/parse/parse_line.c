@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:51:12 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/18 09:54:24 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:31:38 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ t_cmd	*parse_line(t_list **list)
 	t_cmd	*cmd;
 	t_token	*token;
 
+	cmd = NULL;
+	if (!*list)
+		return (cmd);
 	cmd = parse_pipe(list);
 	if (!*list)
 		return (cmd);

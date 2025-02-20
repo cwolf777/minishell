@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:49:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/20 13:41:50 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:32:43 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	run(t_cmd *cmd, char *envp[])
 {
 	if (!cmd)
-		panic("run cmd = NULL");
+		return ;
 	if (cmd->type == EXEC)
 		run_exec((t_exec_cmd *)cmd, envp);
 	if (cmd->type == PIPE)
