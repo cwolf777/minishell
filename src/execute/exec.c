@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:52:06 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/20 16:22:56 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/21 11:36:31 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,10 @@ void	run_exec(t_exec_cmd	*exec, char *envp[])
 	}
 	execve(cmd_path, exec->cmd_args, envp);
 	panic("fail execve exec");
-
+	// ft_strtrim
 }
+
+// char	*validate_cmd_args(t_exec_cmd *exec)
+// {
+	
+// }

@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 09:41:43 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/17 10:30:44 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/21 11:48:09 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct	s_redir_cmd
 {
 	int		type;
 	t_cmd	*cmd;
+	int		is_env_file;
 	char	*file;
 	int		fd;				// STDIN | STDOUT
 	int		mode;			// O_WRONLY | O_CREATE | O_APPEND}	

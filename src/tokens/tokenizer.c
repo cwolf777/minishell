@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:10:07 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/18 14:36:13 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/21 13:40:22 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,25 @@ static t_list *parse_text(char **prompt)
 	return (ft_lstnew(token_init(TEXT, cmd)));
 }
 
+static t_list *parse_env(char **prompt)
+{
+	int		token_len;
+	char	*env_var;
+
+	(*prompt)++;  // Überspringe das '$' Zeichen
+	token_len = 0;
+
+	// Lese Umgebungsvariable bis zu einem Leerzeichen oder einem Symbol
+	while (**prompt != '\0' && !ft_strchr("\t\n\v\f\r |&<>;", **prompt))
+	{
+		(*prompt)++;
+		token_len++;
+	}
+
+	env_var = ft_substr(*prompt - token_len, 0, token_len);
+	return (ft_lstnew(token_init(ENV, env_var)));
+}
+
 static t_list *parse_operator(char **prompt)
 {
 	char	symbol;
@@ -97,6 +116,8 @@ t_list	*tokenizer(char *prompt)
 			node = parse_operator(&prompt);
 		ft_lstadd_back(&tokens, node);
 	}
+	ft_lstiter(tokens, print_tokens);
+	tokens = ft_lstmap(tokens, expanse, free_token);
 	return (tokens);
 }
 

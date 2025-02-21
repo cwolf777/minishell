@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:05:48 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/20 15:06:27 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/21 11:59:36 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
+	(void)envp;
 	g_in_child = 0;
 	setup_signals();
 	while (1)
