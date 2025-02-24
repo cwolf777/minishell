@@ -6,7 +6,7 @@
 /*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:49:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/24 13:52:06 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/24 15:55:27 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,15 @@ void	run_pipe(t_pipe_cmd *pipe_cmd, char *envp[])
 	pid2 = fork_plus();
 	if (pid2 == 0)
 	{
-		// original_stdin = dup(STDIN_FILENO);
 		close(tunnel[1]);
 		dup2(tunnel[0], STDIN_FILENO);
 		close(tunnel[0]);
 		run(pipe_cmd->right, envp);
 	}
-	printf("Parent process waiting for children...\n");
 	close(tunnel[0]);
 	close(tunnel[1]);
 	waitpid(pid1, &status, 0);
 	waitpid(pid2, &status, 0);
-	printf("Children processes finished.\n");
 }
 void	run_back(t_back_cmd *back, char *envp[])
 {

@@ -6,7 +6,7 @@
 /*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/24 15:03:56 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/24 15:54:15 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,5 @@ t_list	*convert_prompt_to_list(char *prompt);
 // signals
 void setup_signals(void);
 int g_pid;
-int	original_stdin;
-void zombie_handler(void);
 
 #endif
