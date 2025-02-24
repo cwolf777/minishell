@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expanse.c                                          :+:      :+:    :+:   */
+/*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 12:43:47 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/21 13:42:23 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/24 13:42:40 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*expand_env_var(char *env_var)
+static char	*extract_env_name(char *str, int *i)
 {
-	char	*value;
+	int		start;
+	char	*env_name;
 
-	value = getenv(env_var);
-	if (!value)
-		return ("");
-	return (value);
+	start = (*i);
+	while (str[*i] && !ft_strchr("\t\n\v\f\r $", str[*i]))
+		(*i)++;
+	env_name = ft_substr(str, start, *i - start);
+	if (!env_name)
+		panic("malloc fail");
+	return (env_name);
 }
 static char	*replace_env_variable(char *str, int *i, char *result)
 {
@@ -27,18 +31,21 @@ static char	*replace_env_variable(char *str, int *i, char *result)
 	char	*env_name;
 	char	*env_value;
 
-	int		start;
-
-	start = ++(*i);
-	while (str[*i] && !ft_strchr("\t\n\v\f\r $", str[*i]))
+	if (str[*i + 1] == ' ' || str[*i + 1] == '\0')
+	{
+		temp = result;
+		result = ft_strjoin(temp, "$");
+		free(temp);
 		(*i)++;
-	env_name = ft_substr(str, start, *i - start);
-	if (!env_name)
-		panic("malloc fail");
-	env_value = expand_env_var(env_name);
+		return (result);
+	}
+	(*i)++;
+	env_name = extract_env_name(str, i);
+	env_value = get_env_var(env_name);
 	free(env_name);
 	temp = result;
 	result = ft_strjoin(temp, env_value);
+	free(env_value);
 	free(temp);
 	if (!result)
 		panic("malloc fail");
@@ -65,28 +72,53 @@ static char	*append_normal_text(char *str, int *i, char *result)
 		panic("malloc fail");
 	return (result);
 }
-
-t_token	*expanse(void	*input)
+static char	*remove_quotes(char *str)
 {
-	char	*str;
+	char	*trimmed;
+
+	if (*str == '"')
+		trimmed = ft_strtrim(str, "\"");
+	else
+		trimmed = ft_strtrim(str, "\'");
+	return (trimmed);
+}
+
+static char	*expand_variables_in_string(char *str)
+{
 	char	*result;
 	int		i;
 
-	str = (char *)input;
-	if (*str == '$')
-		return (expand_env_var(str + 1));
-	if (*str != '"' && ft_strchr(str, '$') == NULL)
-		return (str);
 	result = ft_strdup("");
 	if (!result)
 		panic("malloc fail");
+
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '$')
 			result = replace_env_variable(str, &i, result);
 		else
-			result = append_normal_text(str, &i , result);
+			result = append_normal_text(str, &i, result);
 	}
-	return (token_init(TEXT, result));
+	return (result);
+}
+
+void	*expand_token(void	*content)
+{
+	t_token	*token;
+	char	*str;
+	char	*result;
+
+	str = NULL;
+	token = (t_token *)content;
+	if (token->type != TEXT)
+		return (token_init(token->type, ft_strdup(token->value)));
+	if (*token->value == '$')
+		return (token_init(token->type, get_env_var(token->value + 1)));
+	str = remove_quotes(token->value);
+	if (*token->value != '\"')
+		return (token_init(token->type, str));
+	
+	result = expand_variables_in_string(str);	
+	return (token_init(token->type, result));
 }

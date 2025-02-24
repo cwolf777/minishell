@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:39:07 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/21 13:44:09 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/24 10:44:18 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ void	free_str_arr(char **arr)
 	free(arr);
 }
 
-void	free_token(void *param)
+void	free_token(void *ptr)
 {
 	t_token *token;
 
-	token = (t_token *)param;
+	token = (t_token *)ptr;
 	free(token->value);
-	free(token);
 }

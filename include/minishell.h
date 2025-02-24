@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/21 13:44:22 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/24 13:39:46 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 
 // utils
+char	*get_env_var(char *env_var);
 char	**ft_split2(char const *s, char *delimiters);
 void	panic(char *error_msg);
 int		fork_plus();
@@ -31,7 +32,7 @@ void	print_string_array(char **prompt);
 void	print_list(t_list * list);
 void	print_tokens(t_list *tokens);
 void	free_str_arr(char **arr);
-void	free_token(void *param);
+void	free_token(void *ptr);
 
 
 //execute
@@ -66,7 +67,7 @@ t_cmd	*seq_cmd_init(t_cmd *left, t_cmd *right);
 t_cmd	*back_cmd_init(t_cmd *left);
 
 // tokens
-t_token	*expanse(void	*input);
+void	*expand_token(void	*content);
 t_token	*token_init(int type, char *value);
 t_list	*tokenizer(char *buf);
 int		get_token_type(char c);
