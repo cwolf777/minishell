@@ -6,7 +6,7 @@
 /*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:10:15 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/18 14:06:47 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/24 13:57:48 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ char	*execute(char *prompt, char *envp[])
 		child(pipe_fd, prompt, envp);
 	else
 	{
-		g_in_child = 1;
 		res = parent(pipe_fd);
 		wait(NULL);
-		g_in_child = 0;
 		return (res);
 	}
 	return (NULL);

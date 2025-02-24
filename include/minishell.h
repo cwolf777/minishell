@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/20 10:39:37 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:03:56 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 
 
 // utils
@@ -75,6 +76,8 @@ t_list	*convert_prompt_to_list(char *prompt);
 
 // signals
 void setup_signals(void);
-sig_atomic_t g_in_child;
+int g_pid;
+int	original_stdin;
+void zombie_handler(void);
 
 #endif

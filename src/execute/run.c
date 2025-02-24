@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:49:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/20 14:32:43 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/24 13:52:06 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	run(t_cmd *cmd, char *envp[])
 		return ;
 	if (cmd->type == EXEC)
 		run_exec((t_exec_cmd *)cmd, envp);
-	if (cmd->type == PIPE)
+	else if (cmd->type == PIPE)
 		run_pipe((t_pipe_cmd *)cmd, envp);
 	else if (cmd->type == REDIR)
 		run_redir((t_redir_cmd *)cmd, envp);
@@ -31,27 +31,35 @@ void	run(t_cmd *cmd, char *envp[])
 void	run_pipe(t_pipe_cmd *pipe_cmd, char *envp[])
 {
 	int	tunnel[2];
+	int pid1;
+	int	pid2;
+	int	status;
 
 	if (pipe(tunnel) < 0)
 		panic("pipe fail");
-	if (fork_plus() == 0)
+	pid1 = fork_plus();
+	if (pid1 == 0)
 	{
 		close(tunnel[0]);
 		dup2(tunnel[1], STDOUT_FILENO);
 		close(tunnel[1]);
 		run(pipe_cmd->left, envp);
 	}
-	if (fork_plus() == 0)
+	pid2 = fork_plus();
+	if (pid2 == 0)
 	{
+		// original_stdin = dup(STDIN_FILENO);
 		close(tunnel[1]);
 		dup2(tunnel[0], STDIN_FILENO);
 		close(tunnel[0]);
 		run(pipe_cmd->right, envp);
 	}
+	printf("Parent process waiting for children...\n");
 	close(tunnel[0]);
 	close(tunnel[1]);
-	wait(NULL);
-	wait(NULL);
+	waitpid(pid1, &status, 0);
+	waitpid(pid2, &status, 0);
+	printf("Children processes finished.\n");
 }
 void	run_back(t_back_cmd *back, char *envp[])
 {
