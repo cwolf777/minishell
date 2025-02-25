@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/24 16:14:53 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/25 13:00:15 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,25 @@ char	*open_quote_prompt(char *input, char qoute_type);
 void setup_signals(void);
 sig_atomic_t g_in_child;
 
+//gbcollec
+void *gc_alloc(t_gc_manager *gc, int size, gc_type type);
+void gc_free_all(t_gc_manager *gc);
+typedef enum 
+{
+    GC_STRING,   // Einfache Zeichenkette (char *)
+    GC_ARRAY,    // 2D Array (char **)
+    GC_OTHER     // Sonstiges
+} gc_type;
+
+typedef struct s_gc_node
+{
+	void *ptr;
+	gc_type type;
+	struct s_gc_node *next;
+}				t_gc_node;
+
+typedef struct s_gc_manager
+{
+    t_gc_node *head;
+} 			t_gc_manager;
 #endif
