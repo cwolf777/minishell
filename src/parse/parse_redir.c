@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:49:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/21 11:58:32 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:54:28 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ t_cmd	*parse_redir(t_list **list, t_cmd *cmd)
 	if (!*list)
 		return (cmd);
 	token = (t_token *)(*list)->content;
-	if (token->type != REDIR)
+	if (token->type != REDIR && token->type != HERE_DOC)
 		return (cmd);
+	if (token->type == HERE_DOC)
+		return (heredoc_cmd_init(cmd, token->value));
 	redir_symbol = token->value;
 	*list = (*list)->next;
 	token = (t_token *)(*list)->content;

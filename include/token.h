@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 09:41:43 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/24 10:54:13 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:47:21 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct	s_redir_cmd
 	int		type;
 	t_cmd	*cmd;
 	char	*file;
+	int		is_heredoc;
+	char	*heredoc;
 	int		fd;				// STDIN | STDOUT
 	int		mode;			// O_WRONLY | O_CREATE | O_APPEND}	
 }		t_redir_cmd;
@@ -71,12 +73,11 @@ typedef struct	s_back_cmd
 	t_cmd	*left;
 }			t_back_cmd;
 
-typedef struct	s_here_doc_cmd
+typedef struct	s_heredoc_cmd
 {
 	int		type;
-	t_cmd	*left;
-	char	*delim;
-	char	*str;
-}			t_here_doc_cmd;
+	t_cmd	*cmd;
+	char	*value;
+}			t_heredoc_cmd;
 
 #endif

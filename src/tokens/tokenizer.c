@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:10:07 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/24 16:15:15 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:21:30 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_list *parse_text(char **prompt)
 {
 	int		token_len;
 	char	quote_type;
-	char	*cmd;
+	char	*result;
 
 	token_len = 0;
 	quote_type = 0;
@@ -55,10 +55,10 @@ static t_list *parse_text(char **prompt)
 		(*prompt)++;
 		token_len++;
 	}
-	cmd = ft_substr(*prompt - token_len, 0, token_len);
+	result = ft_substr(*prompt - token_len, 0, token_len);
 	if (quote_type != 0)
-		cmd = 	open_quote_prompt(cmd, quote_type);
-	return (ft_lstnew(token_init(TEXT, cmd)));
+		result = open_quote_prompt(result, quote_type);
+	return (ft_lstnew(token_init(TEXT, result)));
 }
 
 static t_list *parse_operator(char **prompt)
@@ -78,6 +78,29 @@ static t_list *parse_operator(char **prompt)
 	return (ft_lstnew(token_init(token_type, op)));
 }
 
+static t_list *parse_heredoc(char **prompt)
+{
+	int		token_len;
+	char	*delimeter;
+	char	*result;
+
+	token_len = 0;
+	(*prompt)++;
+	(*prompt)++;
+	skip_whitespace(prompt);
+	while (**prompt != '\0')
+	{
+		if (ft_strchr("\t\n\v\f\r ", **prompt) != NULL)
+			break;
+		token_len++;
+		(*prompt)++;
+	}
+		delimeter = ft_substr(*prompt - token_len, 0, token_len);
+		result = open_heredoc_prompt(delimeter);
+		free(delimeter);
+	return(ft_lstnew(token_init(HERE_DOC, result)));
+}
+
 t_list	*tokenizer(char *prompt)
 {
 	t_list	*tokens;
@@ -92,7 +115,9 @@ t_list	*tokenizer(char *prompt)
 		skip_whitespace (&prompt);
 		if (*prompt == '\0')
 			break;
-		if (is_symbol(prompt, 0) == 'a')
+		if (is_symbol(prompt, 0) == '#')
+			node = parse_heredoc(&prompt);
+		else if (is_symbol(prompt, 0) == 'a')
 			node = parse_text(&prompt);
 		else
 			node = parse_operator(&prompt);

@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/24 16:14:53 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:20:36 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	run_pipe(t_pipe_cmd *pipe_cmd, char *envp[]);
 void	run_back(t_back_cmd *back, char *envp[]);
 void	run_seq(t_seq_cmd *seq, char *envp[]);
 void	run_redir(t_redir_cmd *redir, char *envp[]);
+void	run_heredoc(t_heredoc_cmd *heredoc, char *envp[]);
 
 // pipex_utils
 char	*get_envp(char *name, char *envp[]);
@@ -62,6 +63,7 @@ t_cmd	*parse_exec(t_list **liste);
 t_cmd	*parse_redir(t_list **list, t_cmd *cmd);
 t_cmd	*exec_cmd_init(char **cmd_args);
 t_cmd	*redir_cmd_init(t_cmd *cmd, char *file, int fd, int mode);
+t_cmd	*heredoc_cmd_init(t_cmd *cmd, char *value);
 t_cmd	*pipe_cmd_init(t_cmd *left, t_cmd *right);
 t_cmd	*seq_cmd_init(t_cmd *left, t_cmd *right);
 t_cmd	*back_cmd_init(t_cmd *left);
@@ -72,6 +74,7 @@ t_token	*token_init(int type, char *value);
 t_list	*tokenizer(char *buf);
 int		get_token_type(char c);
 char	*open_quote_prompt(char *input, char qoute_type);
+char	*open_heredoc_prompt(char *delimeter);
 
 // signals
 void setup_signals(void);

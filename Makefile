@@ -10,7 +10,7 @@ SRCS =	main.c \
 		execute.c run.c exec.c pipex_utils.c pipex.c \
 		parse_cmd.c parse_block.c parse_line.c parse_exec.c parse_pipe.c parse_redir.c \
 		cmd_init.c print_ast.c \
-		tokenizer.c token_init.c expand_token.c quote_prompt.c \
+		tokenizer.c token_init.c expand_token.c quote_prompt.c heredoc_prompt.c \
 		utils.c ft_split2.c free.c print.c\
 		signals.c
 

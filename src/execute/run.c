@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:49:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/21 12:44:16 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:20:14 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	run(t_cmd *cmd, char *envp[])
 		run_pipe((t_pipe_cmd *)cmd, envp);
 	else if (cmd->type == REDIR)
 		run_redir((t_redir_cmd *)cmd, envp);
+	else if (cmd->type == HERE_DOC)
+		run_heredoc((t_heredoc_cmd *)cmd, envp);
 	else if (cmd->type == SEQ)
 		run_seq((t_seq_cmd *)cmd, envp);
 	else if (cmd->type == BACK)
@@ -82,5 +84,20 @@ void	run_redir(t_redir_cmd *redir, char *envp[])
 		panic("redir open failed");
 	run(redir->cmd, envp);
 	reset_standard_fds(saved_in, saved_out, saved_err);
+}
+void	run_heredoc(t_heredoc_cmd *heredoc, char *envp[])
+{
+	// int	saved_in;
+	// int	saved_out;
+	// int	saved_err;
+
+	// saved_in = dup(STDIN_FILENO);
+	// saved_out = dup(STDERR_FILENO);
+	// saved_err = dup(STDOUT_FILENO);
+
+
+	write(STDIN_FILENO, heredoc->value, sizeof(heredoc->value));
+	run(heredoc->cmd, envp);
+	// reset_standard_fds(saved_in, saved_out, saved_err);
 }
 
