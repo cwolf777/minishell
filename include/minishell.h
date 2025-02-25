@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/24 13:39:46 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/24 16:14:53 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	*expand_token(void	*content);
 t_token	*token_init(int type, char *value);
 t_list	*tokenizer(char *buf);
 int		get_token_type(char c);
+char	*open_quote_prompt(char *input, char qoute_type);
 
 // signals
 void setup_signals(void);
