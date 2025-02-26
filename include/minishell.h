@@ -6,7 +6,7 @@
 /*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 10:31:08 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/26 10:32:42 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,35 @@ char	*open_heredoc_prompt(char *delimeter);
 // signals
 void setup_signals(void);
 int g_pid;
+
+//gbcollec
+void *gc_alloc(t_gc_manager *gc, int size, gc_type type);
+void gc_free_all(t_gc_manager *gc);
+typedef enum 
+{
+    GC_STRING,   // Einfache Zeichenkette (char *)
+    GC_ARRAY,    // 2D Array (char **)
+    GC_STRUCT,
+    //tokens
+    //nodes
+    GC_OTHER     // Sonstiges
+} gc_type;
+
+//gc_alloc(10 + 1, GC_STRING);
+//gc_alloc((char *) 3 + 1, GC_ARRAY); //gc_alloc(10, GC_STRING), gc_alloc(10, GC_STRING), gc_alloc(10, GC_STRING) 
+//gc_alloc(sizeof(t_struct), GC_STRUCT);
+
+
+typedef struct s_gc_node
+{
+	void *ptr;
+	gc_type type;
+	struct s_gc_node *next;
+}				t_gc_node;
+
+typedef struct s_gc_manager
+{
+    t_gc_node *head;
+} 			t_gc_manager;
 
 #endif
