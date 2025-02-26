@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:00:37 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/24 13:37:12 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:29:29 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ void	panic(char *error_msg)
 
 int	fork_plus()
 {
-	int	pid;
-
-	pid = fork();
-	if (pid < 0)
+	g_pid = fork();
+	if (g_pid < 0)
 		panic("fork fail");
-	return (pid);
+	return (g_pid);
 }
 
 char	*ft_char_to_str(char c)

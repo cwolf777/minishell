@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/25 15:20:36 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:31:08 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 
 
 // utils
@@ -78,6 +79,6 @@ char	*open_heredoc_prompt(char *delimeter);
 
 // signals
 void setup_signals(void);
-sig_atomic_t g_in_child;
+int g_pid;
 
 #endif

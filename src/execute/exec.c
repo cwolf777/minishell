@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:52:06 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 10:11:26 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:30:41 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ void	run_exec(t_exec_cmd	*exec, char *envp[])
 	}
 	execve(cmd_path, exec->cmd_args, envp);
 	panic("fail execve exec");
-
 }
 
