@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:05:48 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 13:14:45 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:27:41 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
+	(void)envp;
 	g_pid = 0;
 	setup_signals();
 	while (1)
@@ -45,16 +46,10 @@ int main(int argc, char *argv[], char *envp[])
 		list = tokenizer(input);
 		if (list)
 		{
-			// ft_lstiter(list, print_tokens);
+			ft_lstiter(list, print_tokens);
 			cmd = parse_cmd(&list);
 			print_ast(cmd, 0);
-			if (fork_plus() == 0)
-			{
-				run(cmd, envp);
-				exit(EXIT_SUCCESS);
-			}
-			wait(NULL);
-			g_pid = 0;
+			run(cmd, envp);
 		}
 		free(input);
 	}

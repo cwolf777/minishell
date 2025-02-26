@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:16:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 09:51:56 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:40:49 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ const char* cmd_type_to_str(int type)
 		case SEQ: return "SEQ";
 		case BACK: return "BACK";
 		case PARENS: return "PARENS";
-		case ENV: return "ENV";
+		case BUILTIN: return "BUILTIN";
 		case HERE_DOC: return "HERE_DOC";
 		default: return "UNKNOWN";
 	}
@@ -46,6 +46,15 @@ void print_ast(t_cmd *cmd, int depth)
 			printf(": ");
 			for (int i = 0; exec_cmd->cmd_args[i]; i++) {
 				printf("%s ", exec_cmd->cmd_args[i]);
+			}
+			printf("\n");
+			break;
+		}
+		case BUILTIN: {
+			t_builtin_cmd *builtin_cmd = (t_builtin_cmd *)cmd;
+			printf(": ");
+			for (int i = 0; builtin_cmd->cmd_args[i]; i++) {
+				printf("%s ", builtin_cmd->cmd_args[i]);
 			}
 			printf("\n");
 			break;

@@ -4,7 +4,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBS = -I$(LIBFT_DIR) -I./include
 SRC_DIR = ./src
 
-VPATH = $(SRC_DIR) $(SRC_DIR)/execute $(SRC_DIR)/tokens $(SRC_DIR)/utils $(SRC_DIR)/parse
+VPATH = $(SRC_DIR) $(SRC_DIR)/execute $(SRC_DIR)/tokens $(SRC_DIR)/utils $(SRC_DIR)/parse $(SRC_DIR)/builtins
 
 SRCS =	main.c \
 		execute.c run.c exec.c pipex_utils.c pipex.c \
@@ -12,7 +12,7 @@ SRCS =	main.c \
 		cmd_init.c print_ast.c \
 		tokenizer.c token_init.c expand_token.c quote_prompt.c heredoc_prompt.c \
 		utils.c ft_split2.c free.c print.c\
-		signals.c gbcollec.c
+		signals.c gbcollec.c builtins.c
 
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))

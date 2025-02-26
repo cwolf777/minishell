@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:00:37 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 13:10:17 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:53:15 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	panic(char *error_msg)
 int	fork_plus()
 {
 	g_pid = fork();
-	ft_printf("pid:%d\n", g_pid);
 	if (g_pid < 0)
 		panic("fork fail");
 	return (g_pid);

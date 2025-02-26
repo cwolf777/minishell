@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:49:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 13:22:33 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:53:55 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,29 @@ void	run(t_cmd *cmd, char *envp[])
 {
 	if (!cmd)
 		return ;
-	if (cmd->type == EXEC)
-		run_exec((t_exec_cmd *)cmd, envp);
-	else if (cmd->type == PIPE)
-		run_pipe((t_pipe_cmd *)cmd, envp);
-	else if (cmd->type == REDIR)
-		run_redir((t_redir_cmd *)cmd, envp);
-	else if (cmd->type == HERE_DOC)
-		run_heredoc((t_heredoc_cmd *)cmd, envp);
-	else if (cmd->type == SEQ)
-		run_seq((t_seq_cmd *)cmd, envp);
-	else if (cmd->type == BACK)
-		run_back((t_back_cmd *)cmd, envp);
+	if (cmd->type == BUILTIN)
+	{
+		mycd(cmd);
+		return ;
+	}
+	if (fork_plus() == 0)
+	{
+		if (cmd->type == EXEC)
+			run_exec((t_exec_cmd *)cmd, envp);
+		else if (cmd->type == PIPE)
+			run_pipe((t_pipe_cmd *)cmd, envp);
+		else if (cmd->type == REDIR)
+			run_redir((t_redir_cmd *)cmd, envp);
+		else if (cmd->type == HERE_DOC)
+			run_heredoc((t_heredoc_cmd *)cmd, envp);
+		else if (cmd->type == SEQ)
+			run_seq((t_seq_cmd *)cmd, envp);
+		else if (cmd->type == BACK)
+			run_back((t_back_cmd *)cmd, envp);
+		exit(EXIT_SUCCESS);
+	}
+	wait(NULL);
+	g_pid = 0;
 }
 
 void	run_pipe(t_pipe_cmd *pipe_cmd, char *envp[])

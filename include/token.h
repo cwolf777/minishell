@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 09:41:43 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/25 14:47:21 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:03:52 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef enum e_token_type{
 	SEQ,
 	BACK,
 	PARENS,
-	ENV,
+	BUILTIN,
 	HERE_DOC,
 }	t_token_type;
 
@@ -41,6 +41,12 @@ typedef struct	s_exec_cmd
 	int		type;
 	char	**cmd_args;		// ["cat", "-e", "Makefile", NULL];
 }			t_exec_cmd;
+
+typedef struct	s_builtin_cmd
+{
+	int		type;
+	char	**cmd_args;		// ["cat", "-e", "Makefile", NULL];
+}			t_builtin_cmd;
 
 typedef struct	s_redir_cmd
 {

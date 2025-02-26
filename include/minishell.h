@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 13:00:28 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:11:17 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ typedef struct s_gc_manager
 {
     t_gc_node *head;
 } 			t_gc_manager;
+
+//builtins
+int		is_builtin(char *cmd);
+void	mycd(t_cmd *cmd);
 
 // utils
 char	*get_env_var(char *env_var);

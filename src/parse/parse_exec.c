@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:45:50 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/18 14:07:18 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/26 17:44:35 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ t_cmd	*parse_exec(t_list **list)
 		cmd = parse_redir(list, cmd);
 	}
 	cmd_args = ft_split2(cmd_str, "\t\n\v\f\r ");
+	if (is_builtin(cmd_args[0]) == 1)
+		exec->type = BUILTIN;
 	exec->cmd_args = cmd_args; // ["cat", "-e", "Makefile"]
 	return (cmd);
 }
 
 static char	*join_cmd_args(char *cmd, char *arg)
 {
-	// t_token	*token;
 	char	*temp;
 
 	temp = ft_strjoin(cmd, arg);
