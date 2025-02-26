@@ -6,7 +6,7 @@
 /*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 11:05:17 by cwolf             #+#    #+#             */
-/*   Updated: 2025/02/26 10:07:04 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/26 13:06:47 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void free_char_array(char **array)
     free(array);
 }
 
-void gc_free_all(t_gc_manager *gc) 
+void gc_free_all(void) 
 {
     t_gc_node *node;
 	t_gc_node *next;
