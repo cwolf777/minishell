@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:49:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 10:30:32 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/26 13:22:33 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,21 +92,15 @@ void	run_redir(t_redir_cmd *redir, char *envp[])
 }
 void	run_heredoc(t_heredoc_cmd *heredoc, char *envp[])
 {
-	int	tunnel[2];
+		int tunnel[2];
 
-	if (pipe(tunnel) < 0)
+	if (pipe(tunnel) == -1)
 		panic("pipe failed");
-	if (fork_plus() == 0)
-	{
-		close(tunnel[1]);
-		dup2(tunnel[0], STDIN_FILENO);
-		close(tunnel[0]);
-		run(heredoc->cmd, envp);
-		exit(0);
-	}
-	close(tunnel[0]);
+
 	write(tunnel[1], heredoc->value, strlen(heredoc->value));
 	close(tunnel[1]);
-	wait(NULL);
+	dup2(tunnel[0], STDIN_FILENO);
+	close(tunnel[0]);
+	run(heredoc->cmd, envp);
 }
 

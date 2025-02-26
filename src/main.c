@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:05:48 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 10:30:18 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/26 13:14:45 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int main(int argc, char *argv[], char *envp[])
 		{
 			// ft_lstiter(list, print_tokens);
 			cmd = parse_cmd(&list);
-			// print_ast(cmd, 0);
+			print_ast(cmd, 0);
 			if (fork_plus() == 0)
 			{
 				run(cmd, envp);

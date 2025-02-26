@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 08:58:01 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/25 14:36:44 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:03:02 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*open_heredoc_prompt(char *delimeter)
 		{
 			break;
 		}
-		temp = ft_strjoin("\n", input);
+		temp = ft_strjoin(input, "\n");
 		free(input);
 		input = ft_strjoin(result, temp);
 		free(temp);
