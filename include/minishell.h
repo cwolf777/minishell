@@ -6,7 +6,7 @@
 /*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/25 13:00:15 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/02/26 10:01:46 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,16 @@ typedef enum
 {
     GC_STRING,   // Einfache Zeichenkette (char *)
     GC_ARRAY,    // 2D Array (char **)
+    GC_STRUCT,
+    //tokens
+    //nodes
     GC_OTHER     // Sonstiges
 } gc_type;
+
+//gc_alloc(10 + 1, GC_STRING);
+//gc_alloc((char *) 3 + 1, GC_ARRAY); //gc_alloc(10, GC_STRING), gc_alloc(10, GC_STRING), gc_alloc(10, GC_STRING) 
+//gc_alloc(sizeof(t_struct), GC_STRUCT);
+
 
 typedef struct s_gc_node
 {
@@ -98,4 +106,5 @@ typedef struct s_gc_manager
 {
     t_gc_node *head;
 } 			t_gc_manager;
+
 #endif
