@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:16:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/17 17:28:23 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/26 09:51:56 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void print_ast(t_cmd *cmd, int depth)
 			break;
 		}
 		case HERE_DOC: {
-			t_here_doc_cmd *here_doc_cmd = (t_here_doc_cmd *)cmd;
-			printf(": Delimiter: %s, Content: %s\n", here_doc_cmd->delim, here_doc_cmd->str);
-			print_ast(here_doc_cmd->left, depth + 1);
+			t_heredoc_cmd *heredoc_cmd = (t_heredoc_cmd *)cmd;
+			printf(": Content: %s\n", heredoc_cmd->value);
+			print_ast(heredoc_cmd->cmd, depth + 1);
 			break;
 		}
 		default:

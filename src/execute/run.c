@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:49:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/25 15:20:14 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:21:09 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,21 @@ void	run_redir(t_redir_cmd *redir, char *envp[])
 }
 void	run_heredoc(t_heredoc_cmd *heredoc, char *envp[])
 {
-	// int	saved_in;
-	// int	saved_out;
-	// int	saved_err;
+	int	tunnel[2];
 
-	// saved_in = dup(STDIN_FILENO);
-	// saved_out = dup(STDERR_FILENO);
-	// saved_err = dup(STDOUT_FILENO);
-
-
-	write(STDIN_FILENO, heredoc->value, sizeof(heredoc->value));
-	run(heredoc->cmd, envp);
-	// reset_standard_fds(saved_in, saved_out, saved_err);
+	if (pipe(tunnel) < 0)
+		panic("pipe failed");
+	if (fork_plus() == 0)
+	{
+		close(tunnel[1]);
+		dup2(tunnel[0], STDIN_FILENO);
+		close(tunnel[0]);
+		run(heredoc->cmd, envp);
+		exit(0);
+	}
+	close(tunnel[0]);
+	write(tunnel[1], heredoc->value, strlen(heredoc->value));
+	close(tunnel[1]);
+	wait(NULL);
 }
 
