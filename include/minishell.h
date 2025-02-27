@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 17:11:17 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:07:13 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ typedef struct s_gc_manager
 
 //builtins
 int		is_builtin(char *cmd);
-void	mycd(t_cmd *cmd);
+void	run_builtins(t_exec_cmd *cmd, char *envp[]);
+void	exec_cd(t_exec_cmd *cmd);
+void	exec_export(t_exec_cmd *cmd, char *envp[]);
+void	add_env_var(char **envp[], char *key, char *value);
 
 // utils
 char	*get_env_var(char *env_var);
@@ -62,9 +65,7 @@ void	free_token(void *ptr);
 
 
 //execute
-char	*execute(char *prompt, char *envp[]);
 char	*read_prompt();
-void	pipex(char *args[], char *envp[]);
 void	run(t_cmd *cmd, char *envp[]);
 void	run_exec(t_exec_cmd	*exec, char *envp[]);
 void	run_pipe(t_pipe_cmd *pipe_cmd, char *envp[]);

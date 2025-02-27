@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:49:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 17:53:55 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:04:33 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	run(t_cmd *cmd, char *envp[])
 		return ;
 	if (cmd->type == BUILTIN)
 	{
-		mycd(cmd);
+		run_builtins((t_exec_cmd *)cmd, envp);
 		return ;
 	}
 	if (fork_plus() == 0)
@@ -101,6 +101,7 @@ void	run_redir(t_redir_cmd *redir, char *envp[])
 	run(redir->cmd, envp);
 	reset_standard_fds(saved_in, saved_out, saved_err);
 }
+
 void	run_heredoc(t_heredoc_cmd *heredoc, char *envp[])
 {
 		int tunnel[2];

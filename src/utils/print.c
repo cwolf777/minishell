@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:55:46 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/19 14:56:20 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:24:36 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_string_array(char **arr)
 	int i = 0;
 	while (arr[i] != NULL)
 	{
-		ft_printf("%s ", arr[i]);
+		ft_printf("%s\n", arr[i]);
 		i++;
 	}
 }
