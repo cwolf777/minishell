@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:10:07 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/25 15:21:30 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/28 23:20:56 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,24 @@ static void	skip_whitespace(char **prompt)
 			(*prompt) ++;
 }
 
+static	char	*parse_qoutes(char **prompt, char quote_type)
+{
+	int		token_len;
+	char	*result;
+
+	token_len = 0;
+	(*prompt)++;
+	while (**prompt != '\0' && **prompt != quote_type)
+	{
+		token_len++;
+		(*prompt)++;
+	}
+	result = ft_substr(*prompt - token_len, 0, token_len);
+	if (**prompt != quote_type)
+		result = open_quote_prompt(result, quote_type);
+	(*prompt)++;
+	return (result);
+}
 static t_list *parse_text(char **prompt)
 {
 	int		token_len;
@@ -41,23 +59,22 @@ static t_list *parse_text(char **prompt)
 
 	token_len = 0;
 	quote_type = 0;
+
+	char c;
 	while (**prompt != '\0')
 	{
-		if (**prompt == '"' || **prompt == '\'')
+		c = **prompt;
+		if ((**prompt == '"' || **prompt == '\'') && token_len == 0)
 		{
-			if (quote_type == 0)
-				quote_type = **prompt;
-			else if(quote_type == **prompt)
-				quote_type = 0;
+			result = parse_qoutes(prompt, **prompt);
+			return (ft_lstnew(token_init(TEXT, result)));
 		}
-		else if (quote_type == 0 && (ft_strchr("\t\n\v\f\r ", **prompt) || is_symbol(*prompt, 0) != 'a'))
+		if ((ft_strchr("\t\n\v\f\r '\"", **prompt) || is_symbol(*prompt, 0) != 'a'))
 			break;
 		(*prompt)++;
 		token_len++;
 	}
 	result = ft_substr(*prompt - token_len, 0, token_len);
-	if (quote_type != 0)
-		result = open_quote_prompt(result, quote_type);
 	return (ft_lstnew(token_init(TEXT, result)));
 }
 
@@ -104,7 +121,7 @@ static t_list *parse_heredoc(char **prompt)
 t_list	*tokenizer(char *prompt)
 {
 	t_list	*tokens;
-	t_list	*expanded_tokens;
+	// t_list	*expanded_tokens;
 	t_list	*node;
 
 	if (!prompt)
@@ -123,9 +140,10 @@ t_list	*tokenizer(char *prompt)
 			node = parse_operator(&prompt);
 		ft_lstadd_back(&tokens, node);
 	}
-	expanded_tokens = ft_lstmap(tokens, expand_token, free_token);
-	ft_lstclear(&tokens, free_token);
-	return (expanded_tokens);
+	// expanded_tokens = ft_lstmap(tokens, expand_token, free_token);
+	// ft_lstclear(&tokens, free_token);
+	// return (expanded_tokens);
+	return (tokens);
 }
 
 int	get_token_type(char	c)

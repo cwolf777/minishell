@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/27 15:07:13 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/01 01:17:09 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ typedef struct s_gc_manager
 
 //builtins
 int		is_builtin(char *cmd);
-void	run_builtins(t_exec_cmd *cmd, char *envp[]);
+void	run_builtins(t_exec_cmd *cmd, char ***envp);
 void	exec_cd(t_exec_cmd *cmd);
-void	exec_export(t_exec_cmd *cmd, char *envp[]);
-void	add_env_var(char **envp[], char *key, char *value);
+void	exec_export(t_exec_cmd *cmd, char ***envp);
+void	add_env_var(char ***envp, char *key, char *value);
 
 // utils
 char	*get_env_var(char *env_var);
@@ -62,11 +62,11 @@ void	print_list(t_list * list);
 void	print_tokens(t_list *tokens);
 void	free_str_arr(char **arr);
 void	free_token(void *ptr);
-
+char	**copy_env(char *envp[]);
 
 //execute
 char	*read_prompt();
-void	run(t_cmd *cmd, char *envp[]);
+void	run(t_cmd *cmd, char ***envp);
 void	run_exec(t_exec_cmd	*exec, char *envp[]);
 void	run_pipe(t_pipe_cmd *pipe_cmd, char *envp[]);
 void	run_back(t_back_cmd *back, char *envp[]);

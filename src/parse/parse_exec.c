@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:45:50 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 17:44:35 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/28 23:19:38 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_cmd	*parse_exec(t_list **list)
 		*list = (*list)->next;
 		cmd = parse_redir(list, cmd);
 	}
-	cmd_args = ft_split2(cmd_str, "\t\n\v\f\r ");
+	cmd_args = ft_split(cmd_str, ' ');
 	if (is_builtin(cmd_args[0]) == 1)
 		exec->type = BUILTIN;
 	exec->cmd_args = cmd_args; // ["cat", "-e", "Makefile"]

@@ -6,18 +6,17 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:51:28 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/27 15:33:01 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/01 01:16:45 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	run_builtins(t_exec_cmd *cmd, char *envp[])
+void	run_builtins(t_exec_cmd *cmd, char ***envp)
 {
 	char *builtin;
 	int	len;
 
-	(void)envp;
 	builtin = cmd->cmd_args[0];
 	len = ft_strlen(builtin);
 	if (ft_strncmp(builtin, "cd", len) == 0)
@@ -64,7 +63,7 @@ void	exec_cd(t_exec_cmd *cmd)
 		chdir(cmd->cmd_args[1]);
 }
 
-void	exec_export(t_exec_cmd *cmd, char *envp[])
+void	exec_export(t_exec_cmd *cmd, char ***envp)
 {
 	char	**entry;
 	int		i;
@@ -73,12 +72,13 @@ void	exec_export(t_exec_cmd *cmd, char *envp[])
 	while (cmd->cmd_args[i] != NULL)
 	{
 		entry = ft_split(cmd->cmd_args[i], '=');
-		print_string_array(entry);
-		add_env_var(&envp, entry[0], entry[1]);
+		// if (entry[1] == NULL) // only VAR
+		// print_string_array(entry);
+		add_env_var(envp, entry[0], entry[1]);
 		free_str_arr(entry);
 		i++;
 	}
-	if (i == 1)
-		print_string_array(envp);
-
+	if (cmd->cmd_args[1] == NULL)
+		print_string_array(*envp);
+	// print_string_array(*envp);
 }

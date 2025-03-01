@@ -18,7 +18,7 @@ OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 CC = cc
 CFLAGS = -Wall -Werror -Wextra $(LIBS)
-DEBUG_FLAGS = -Wall -Werror -Wextra -g $(LIBS)
+DEBUG_FLAGS = -Wall -Werror -Wextra -fsanitize=address -g $(LIBS)
 
 all: $(NAME)
 

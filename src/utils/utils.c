@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:00:37 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 13:53:15 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:57:20 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,23 @@ void	reset_standard_fds(int in, int out, int err)
 	close(in);
 	close(out);
 	close(err);
+}
+
+char	**copy_env(char *envp[])
+{
+	char	**copy;
+	int		len;
+	
+	len = 0;
+	while (envp[len] != NULL)
+		len++;
+	copy = (char **)malloc(sizeof(char *) * (len + 1));
+	len = 0;
+	while (envp[len] != NULL)
+	{
+		copy[len] = ft_strdup(envp[len]);
+		len++;
+	}
+	copy[len] = NULL;
+	return (copy);
 }

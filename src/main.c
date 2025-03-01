@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:05:48 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/27 15:32:11 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/01 01:16:02 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,15 @@ int main(int argc, char *argv[], char *envp[])
 	char	*input;
 	t_list	*list;
 	t_cmd	*cmd;
-
+	
 	(void)argc;
 	(void)argv;
+	envp = copy_env(envp);
 	g_pid = 0;
 	setup_signals();
 	while (1)
 	{
+		// // input = "echo '\"'hallo'\"'";
 		input = read_prompt();
 		if (!input)
 		{
@@ -45,12 +47,13 @@ int main(int argc, char *argv[], char *envp[])
 		list = tokenizer(input);
 		if (list)
 		{
-			ft_lstiter(list, print_tokens);
+			// ft_lstiter(list, print_tokens);
 			cmd = parse_cmd(&list);
-			print_ast(cmd, 0);
-			run(cmd, envp);
+			// print_ast(cmd, 0);
+			run(cmd, &envp);
+			print_string_array(envp);
 		}
-		free(input);
+		// free(input);
 	}
 	rl_clear_history();
 	return (EXIT_SUCCESS);

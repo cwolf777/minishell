@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 10:40:51 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/27 15:39:08 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/01 00:49:49 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	replace_env_entry(char **envp[],char *key, char *entry)
 	}
 }
 
-void	add_env_var(char **envp[], char *key, char *value)
+void	add_env_var(char ***envp, char *key, char *value)
 {
 	char	*entry;
 	char	*temp;
@@ -39,7 +39,7 @@ void	add_env_var(char **envp[], char *key, char *value)
 	temp = ft_strjoin(key, "=");
 	entry = ft_strjoin(temp, value);
 	free(temp);
-	if (getenv(key) != NULL)
+	if (getenv(key) != NULL) //getenv geht nicht weil env von uns geaendert wird
 	{
 		replace_env_entry(envp, key, entry);
 		return ;
@@ -56,5 +56,7 @@ void	add_env_var(char **envp[], char *key, char *value)
 	}
 	new_envp[i] = entry;
 	new_envp[i + 1] = NULL;
+	free(*envp);
 	*envp = new_envp;
+	// print_string_array(*envp);
 }

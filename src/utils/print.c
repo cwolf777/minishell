@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:55:46 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/27 15:24:36 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/01 00:40:04 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void print_tokens(t_list *tokens)
 	t_token	*token;
 
 	token = (t_token *)tokens->content;
-	printf("TOKEN: Type=%d, Value='%s'\n", token->type, token->value);
+	printf("TOKEN: Type=%d, Value=%s\\0\n", token->type, token->value);
 }
 
 void	print_list(t_list *list)
