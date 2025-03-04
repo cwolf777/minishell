@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/03/01 01:17:09 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:17:05 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_cmd	*seq_cmd_init(t_cmd *left, t_cmd *right);
 t_cmd	*back_cmd_init(t_cmd *left);
 
 // tokens
-void	*expand_token(void	*content);
+char	*expand_str(char *str);
 t_token	*token_init(int type, char *value);
 t_list	*tokenizer(char *buf);
 int		get_token_type(char c);

@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:10:07 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/28 23:20:56 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:17:17 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,47 @@ static void	skip_whitespace(char **prompt)
 			(*prompt) ++;
 }
 
+// static char	*parse_dqoutes(char **prompt)
+// {
+// 	int		token_len;
+// 	char	*result;
+
+// 	token_len = 0;
+// 	(*prompt)++;
+// 	while (**prompt != '\0' && **prompt != '"')
+// 	{
+// 		token_len++;
+// 		(*prompt)++;
+// 	}
+// 	result = ft_substr(*prompt - token_len, 0, token_len);
+// 	if (**prompt != '"')
+// 		result = open_quote_prompt(result, '"');
+// 	result = expand_variables_in_string(result);
+// 	(*prompt)++;
+// 	return (result);
+// }
+
 static	char	*parse_qoutes(char **prompt, char quote_type)
 {
 	int		token_len;
 	char	*result;
-
+	char c;
+	char *str;
 	token_len = 0;
 	(*prompt)++;
+	c = **prompt;
 	while (**prompt != '\0' && **prompt != quote_type)
 	{
+		c = **prompt;
+		str = *prompt;
 		token_len++;
 		(*prompt)++;
 	}
 	result = ft_substr(*prompt - token_len, 0, token_len);
 	if (**prompt != quote_type)
 		result = open_quote_prompt(result, quote_type);
+	if (quote_type == '"')
+		result = expand_variables_tr(result);
 	(*prompt)++;
 	return (result);
 }
@@ -121,7 +147,6 @@ static t_list *parse_heredoc(char **prompt)
 t_list	*tokenizer(char *prompt)
 {
 	t_list	*tokens;
-	// t_list	*expanded_tokens;
 	t_list	*node;
 
 	if (!prompt)
@@ -140,9 +165,6 @@ t_list	*tokenizer(char *prompt)
 			node = parse_operator(&prompt);
 		ft_lstadd_back(&tokens, node);
 	}
-	// expanded_tokens = ft_lstmap(tokens, expand_token, free_token);
-	// ft_lstclear(&tokens, free_token);
-	// return (expanded_tokens);
 	return (tokens);
 }
 

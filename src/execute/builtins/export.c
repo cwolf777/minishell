@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 10:40:51 by phhofman          #+#    #+#             */
-/*   Updated: 2025/03/01 00:49:49 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/04 10:21:06 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,4 @@ void	add_env_var(char ***envp, char *key, char *value)
 	new_envp[i + 1] = NULL;
 	free(*envp);
 	*envp = new_envp;
-	// print_string_array(*envp);
 }

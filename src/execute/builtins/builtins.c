@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:51:28 by phhofman          #+#    #+#             */
-/*   Updated: 2025/03/01 01:16:45 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/04 10:21:00 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ void	exec_export(t_exec_cmd *cmd, char ***envp)
 	int		i;
 
 	i = 1;
+	if (cmd->cmd_args[1] == NULL)
+	{
+		print_string_array(*envp);
+		return ;
+	}
 	while (cmd->cmd_args[i] != NULL)
 	{
 		entry = ft_split(cmd->cmd_args[i], '=');
-		// if (entry[1] == NULL) // only VAR
-		// print_string_array(entry);
 		add_env_var(envp, entry[0], entry[1]);
 		free_str_arr(entry);
 		i++;
 	}
-	if (cmd->cmd_args[1] == NULL)
-		print_string_array(*envp);
-	// print_string_array(*envp);
 }

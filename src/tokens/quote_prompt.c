@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:35:24 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/28 22:20:19 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/04 10:23:06 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	found_closing_quote(char *str, char qoute_type)
 	int	qoute_count;
 	
 	i = 0;
-	qoute_count = 0;
+	qoute_count = 1;
 	while (str[i])
 	{
 		if (str[i] == qoute_type)

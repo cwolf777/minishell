@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_token.c                                     :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 12:43:47 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/24 13:42:40 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:16:30 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*extract_env_name(char *str, int *i)
 	char	*env_name;
 
 	start = (*i);
-	while (str[*i] && !ft_strchr("\t\n\v\f\r $", str[*i]))
+	while (str[*i] && !ft_strchr("\t\n\v\f\r '\"();|&<>$", str[*i]))
 		(*i)++;
 	env_name = ft_substr(str, start, *i - start);
 	if (!env_name)
@@ -31,7 +31,7 @@ static char	*replace_env_variable(char *str, int *i, char *result)
 	char	*env_name;
 	char	*env_value;
 
-	if (str[*i + 1] == ' ' || str[*i + 1] == '\0')
+	if (ft_strchr("\t\n\v\f\r ", str[*i + 1]) || str[*i + 1] == '\0')
 	{
 		temp = result;
 		result = ft_strjoin(temp, "$");
@@ -72,18 +72,8 @@ static char	*append_normal_text(char *str, int *i, char *result)
 		panic("malloc fail");
 	return (result);
 }
-static char	*remove_quotes(char *str)
-{
-	char	*trimmed;
 
-	if (*str == '"')
-		trimmed = ft_strtrim(str, "\"");
-	else
-		trimmed = ft_strtrim(str, "\'");
-	return (trimmed);
-}
-
-static char	*expand_variables_in_string(char *str)
+char	*expand_str(char *str)
 {
 	char	*result;
 	int		i;
@@ -103,22 +93,3 @@ static char	*expand_variables_in_string(char *str)
 	return (result);
 }
 
-void	*expand_token(void	*content)
-{
-	t_token	*token;
-	char	*str;
-	char	*result;
-
-	str = NULL;
-	token = (t_token *)content;
-	if (token->type != TEXT)
-		return (token_init(token->type, ft_strdup(token->value)));
-	if (*token->value == '$')
-		return (token_init(token->type, get_env_var(token->value + 1)));
-	str = remove_quotes(token->value);
-	if (*token->value != '\"')
-		return (token_init(token->type, str));
-	
-	result = expand_variables_in_string(str);	
-	return (token_init(token->type, result));
-}
