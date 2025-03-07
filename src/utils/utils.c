@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:00:37 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/28 13:57:20 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/05 12:56:11 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_char_to_str(char c)
 {
 	char	*str;
 
-	str = (char *)malloc(sizeof(char) * 2);
+	str = (char *)gc_alloc(sizeof(char) * 2);
 	if (!str)
 		return (NULL);
 	str[0] = c;

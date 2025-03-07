@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:51:51 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/20 14:29:46 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:20:05 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd	*parse_pipe(t_list	**list)
+t_cmd	*parse_pipe(t_list	**list) //done
 {
 	t_token *token;
 	t_cmd	*cmd;

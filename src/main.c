@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:05:48 by phhofman          #+#    #+#             */
-/*   Updated: 2025/03/04 13:10:51 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:19:07 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void check_check()
+{
+    system("leaks minishell");
+}
+
 
 char	*read_prompt()
 {
@@ -44,15 +50,19 @@ int main(int argc, char *argv[], char *envp[])
 			ft_printf("exit");
 			exit(EXIT_SUCCESS);
 		}
-		list = tokenizer(input);
+		list = tokenizer(input); //done
 		if (list)
 		{
-			ft_lstiter(list, print_tokens);
-			cmd = parse_cmd(&list);
-			print_ast(cmd, 0);
+			// ft_lstiter(list, print_tokens);
+			cmd = parse_cmd(&list); //done
+			// print_ast(cmd, 0);
 			run(cmd, &envp);
 		}
+		gc_print_list();
+		gc_free_all();
+		gc_print_list();
 		// free(input);
+		check_check();
 	}
 	rl_clear_history();
 	return (EXIT_SUCCESS);

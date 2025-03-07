@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:10:07 by phhofman          #+#    #+#             */
-/*   Updated: 2025/03/04 13:17:17 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:09:00 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ static	char	*parse_qoutes(char **prompt, char quote_type)
 		token_len++;
 		(*prompt)++;
 	}
-	result = ft_substr(*prompt - token_len, 0, token_len);
+	result = ft_substr_gc(*prompt - token_len, 0, token_len);
 	if (**prompt != quote_type)
 		result = open_quote_prompt(result, quote_type);
 	if (quote_type == '"')
-		result = expand_variables_tr(result);
+		result = expand_str(result);
 	(*prompt)++;
 	return (result);
 }
@@ -92,7 +92,7 @@ static t_list *parse_text(char **prompt)
 		c = **prompt;
 		if ((**prompt == '"' || **prompt == '\'') && token_len == 0)
 		{
-			result = parse_qoutes(prompt, **prompt);
+			result = parse_qoutes(prompt, **prompt); //nochmal checken
 			return (ft_lstnew(token_init(TEXT, result)));
 		}
 		if ((ft_strchr("\t\n\v\f\r '\"", **prompt) || is_symbol(*prompt, 0) != 'a'))
@@ -100,8 +100,8 @@ static t_list *parse_text(char **prompt)
 		(*prompt)++;
 		token_len++;
 	}
-	result = ft_substr(*prompt - token_len, 0, token_len);
-	return (ft_lstnew(token_init(TEXT, result)));
+	result = ft_substr_gc(*prompt - token_len, 0, token_len);
+	return (ft_lstnew_gc(token_init_gc(TEXT, result)));
 }
 
 static t_list *parse_operator(char **prompt)
@@ -118,7 +118,7 @@ static t_list *parse_operator(char **prompt)
 		(*prompt) ++;
 	(*prompt) ++;
 	token_type = get_token_type(symbol);
-	return (ft_lstnew(token_init(token_type, op)));
+	return (ft_lstnew_gc(token_init_gc(token_type, op)));
 }
 
 static t_list *parse_heredoc(char **prompt)
@@ -138,10 +138,10 @@ static t_list *parse_heredoc(char **prompt)
 		token_len++;
 		(*prompt)++;
 	}
-		delimeter = ft_substr(*prompt - token_len, 0, token_len);
+		delimeter = ft_substr_gc(*prompt - token_len, 0, token_len);
 		result = open_heredoc_prompt(delimeter);
-		free(delimeter);
-	return(ft_lstnew(token_init(HERE_DOC, result)));
+		// free(delimeter);
+	return(ft_lstnew_gc(token_init_gc(HERE_DOC, result)));
 }
 
 t_list	*tokenizer(char *prompt)
@@ -158,12 +158,12 @@ t_list	*tokenizer(char *prompt)
 		if (*prompt == '\0')
 			break;
 		if (is_symbol(prompt, 0) == '#')
-			node = parse_heredoc(&prompt);
+			node = parse_heredoc(&prompt); //done
 		else if (is_symbol(prompt, 0) == 'a')
-			node = parse_text(&prompt);
+			node = parse_text(&prompt); //done
 		else
-			node = parse_operator(&prompt);
-		ft_lstadd_back(&tokens, node);
+			node = parse_operator(&prompt); //done
+		ft_lstadd_back(&tokens, node); //done
 	}
 	return (tokens);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_prompt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 08:58:01 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 13:03:02 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:44:05 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ char	*open_heredoc_prompt(char *delimeter)
 		{
 			break;
 		}
-		temp = ft_strjoin(input, "\n");
+		temp = ft_strjoin_gc(input, "\n");
 		free(input);
 		input = ft_strjoin(result, temp);
-		free(temp);
+		gc_free_one(temp);
 		free(result);
 		result = input;
 	}

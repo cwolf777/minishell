@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:36:15 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/12 13:44:49 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:19:05 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_envp(char *name, char *envp[])
 	return (NULL);
 }
 
-char	*get_cmd_path(char *cmd, char *envp[])
+char	*get_cmd_path(char *cmd, char *envp[]) //done
 {
 	char	**paths;
 	char	*path;
@@ -59,12 +59,12 @@ char	*get_cmd_path(char *cmd, char *envp[])
 	i = 0;
 	while (paths[i] != NULL)
 	{
-		path = ft_strjoin(paths[i], cmd_temp);
+		path = ft_strjoin_gc(paths[i], cmd_temp);
 		if (!path)
 			return (free(cmd_temp), free_str_arr(paths), NULL);
 		if (access(path, F_OK | X_OK) == 0)
 			return (free(cmd_temp), free_str_arr(paths), path);
-		free(path);
+		gc_free_one(path);
 		i++;
 	}
 	return (free(cmd_temp), free_str_arr(paths), NULL);

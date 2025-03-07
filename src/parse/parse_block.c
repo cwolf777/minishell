@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_block.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:50:17 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/18 09:50:25 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:42:54 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd	*parse_block(t_list **list)
+t_cmd	*parse_block(t_list **list) //done
 {
 	t_cmd	*cmd;
 	t_token	*token;

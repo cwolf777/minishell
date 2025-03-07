@@ -24,7 +24,7 @@ SRCS =	ft_isalpha.c ft_isdigit.c ft_isalnum.c \
 		ft_printf.c ft_print_char.c ft_print_str.c \
 		ft_print_nbr.c ft_print_hexnbr.c ft_print_pointer.c \
 		ft_print_unsignednbr.c \
-		get_next_line.c get_next_line_utils.c
+		get_next_line.c get_next_line_utils.c \
 
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:06:36 by phhofman          #+#    #+#             */
-/*   Updated: 2025/03/04 13:17:05 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:14:50 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,13 @@
 # define MINISHELL_H
 
 # include "libft.h"
-# include "./token.h"
+# include "token.h"
+# include "gc_collec.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-
-typedef enum 
-{
-    GC_STRING,   // Einfache Zeichenkette (char *)
-    GC_ARRAY,    // 2D Array (char **)
-    GC_STRUCT,
-    //tokens
-    //nodes
-    GC_OTHER     // Sonstiges
-} gc_type;
-
-typedef struct s_gc_node
-{
-	void *ptr;
-	gc_type type;
-	struct s_gc_node *next;
-}				t_gc_node;
-
-typedef struct s_gc_manager
-{
-    t_gc_node *head;
-} 			t_gc_manager;
 
 //builtins
 int		is_builtin(char *cmd);
@@ -73,6 +52,7 @@ void	run_back(t_back_cmd *back, char *envp[]);
 void	run_seq(t_seq_cmd *seq, char *envp[]);
 void	run_redir(t_redir_cmd *redir, char *envp[]);
 void	run_heredoc(t_heredoc_cmd *heredoc, char *envp[]);
+void    run_cmds(t_cmd *cmd, char ***envp);
 
 // pipex_utils
 char	*get_envp(char *name, char *envp[]);
@@ -106,15 +86,5 @@ char	*open_heredoc_prompt(char *delimeter);
 // signals
 void setup_signals(void);
 int g_pid;
-
-//gbcollec
-void *gc_alloc(t_gc_manager *gc, int size, gc_type type);
-void gc_free_all(t_gc_manager *gc);
-
-//gc_alloc(10 + 1, GC_STRING);
-//gc_alloc((char *) 3 + 1, GC_ARRAY); //gc_alloc(10, GC_STRING), gc_alloc(10, GC_STRING), gc_alloc(10, GC_STRING) 
-//gc_alloc(sizeof(t_struct), GC_STRUCT);
-
-
 
 #endif

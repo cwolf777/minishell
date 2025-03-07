@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_prompt.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:35:24 by phhofman          #+#    #+#             */
-/*   Updated: 2025/03/04 10:23:06 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:16:43 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*open_quote_prompt(char *prompt, char qoute_type)
 			input = readline("qoute> ");
 		temp = ft_strjoin("\n", input);
 		free(input);
-		input = ft_strjoin(result, temp);
+		input = ft_strjoin_gc(result, temp);
 		free(temp);
 		free(result);
 		result = input;

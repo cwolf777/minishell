@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:52:06 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/28 23:19:15 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:21:55 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	run_exec(t_exec_cmd	*exec, char *envp[])
+void	run_exec(t_exec_cmd	*exec, char *envp[]) //done
 {
 	char	*cmd_path;
 

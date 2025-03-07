@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:49:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/02/26 10:01:45 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:42:30 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd	*parse_redir(t_list **list, t_cmd *cmd)
+t_cmd	*parse_redir(t_list **list, t_cmd *cmd) //done
 {
 	t_token		*token;
 	char		*redir_symbol;

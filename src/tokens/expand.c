@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 12:43:47 by phhofman          #+#    #+#             */
-/*   Updated: 2025/03/04 13:16:30 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:20:04 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static char	*replace_env_variable(char *str, int *i, char *result)
 	if (ft_strchr("\t\n\v\f\r ", str[*i + 1]) || str[*i + 1] == '\0')
 	{
 		temp = result;
-		result = ft_strjoin(temp, "$");
-		free(temp);
+		result = ft_strjoin_gc(temp, "$");
+		// free(temp);
 		(*i)++;
 		return (result);
 	}
@@ -44,7 +44,7 @@ static char	*replace_env_variable(char *str, int *i, char *result)
 	env_value = get_env_var(env_name);
 	free(env_name);
 	temp = result;
-	result = ft_strjoin(temp, env_value);
+	result = ft_strjoin_gc(temp, env_value);
 	free(env_value);
 	free(temp);
 	if (!result)
@@ -65,7 +65,7 @@ static char	*append_normal_text(char *str, int *i, char *result)
 	if (!text_part)
 		panic ("malloc fail");
 	temp = result;
-	result = ft_strjoin(temp, text_part);
+	result = ft_strjoin_gc(temp, text_part);
 	free(temp);
 	free(text_part);
 	if (!result)
@@ -78,7 +78,7 @@ char	*expand_str(char *str)
 	char	*result;
 	int		i;
 
-	result = ft_strdup("");
+	result = ft_strdup_gc("");
 	if (!result)
 		panic("malloc fail");
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:51:28 by phhofman          #+#    #+#             */
-/*   Updated: 2025/03/04 10:21:00 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:12:20 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	run_builtins(t_exec_cmd *cmd, char ***envp)
+void	run_builtins(t_exec_cmd *cmd, char ***envp) //done
 {
 	char *builtin;
 	int	len;
