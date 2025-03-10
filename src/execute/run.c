@@ -6,7 +6,7 @@
 /*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:49:13 by phhofman          #+#    #+#             */
-/*   Updated: 2025/03/07 14:31:25 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/03/10 13:56:32 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void    run_redir(t_redir_cmd *redir, char *envp[]) //done
     close(redir->fd);
     if (open(redir->file, redir->mode, 0644) < 0)
         panic("redir open failed");
-    run(redir->cmd, &envp);
+    run_cmds(redir->cmd, &envp);
     reset_standard_fds(saved_in, saved_out, saved_err);
 }
 void    run_heredoc(t_heredoc_cmd *heredoc, char *envp[])
