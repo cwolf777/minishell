@@ -1,5 +1,5 @@
 🐚 **minishell**
-This repository contains a solution to the minishell project from the third circle of the 42 school curriculum.
+This repository contains a solution to the minishell project from the **third circle** of the **42 school curriculum**.
 It is a simplified Unix shell, focused on understanding terminal behavior, process handling, environment management, and memory control.
 
 
@@ -33,8 +33,13 @@ Simplifies memory management across multiple execution stages
 
 🔧 **Supported Features**
 Built-in commands: cd, echo, env, exit, export, pwd, unset
+
 Quoted strings, escape characters, and environment expansion
+
 Multiple pipes and chained commands
+
 I/O redirection with file descriptor management
+
 Signal responsiveness (e.g., Ctrl+C interrupt)
+
 Exit status propagation
